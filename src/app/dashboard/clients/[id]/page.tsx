@@ -63,7 +63,7 @@ export default function ClientDetailPage() {
         setClient(clientRes.data as Client);
       }
       if (!loadsRes.error && loadsRes.data) {
-        setLoads(loadsRes.data as Load[]);
+        setLoads(loadsRes.data as unknown as Load[]);
       }
       setLoading(false);
     }

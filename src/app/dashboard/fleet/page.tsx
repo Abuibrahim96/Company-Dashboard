@@ -39,7 +39,7 @@ export default function FleetPage() {
         .order("make", { ascending: true });
 
       if (!error && data) {
-        setTrucks(data as Truck[]);
+        setTrucks(data as unknown as Truck[]);
       }
       setLoading(false);
     }

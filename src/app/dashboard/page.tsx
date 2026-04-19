@@ -121,8 +121,8 @@ export default function DashboardOverview() {
       loadsThisMonth,
       monthlyRevenue,
       complianceScore,
-      expiringDocs: (docsExpiringRes.data ?? []) as ComplianceDoc[],
-      pendingApplications: (applicationsRes.data ?? []) as Application[],
+      expiringDocs: (docsExpiringRes.data ?? []) as unknown as ComplianceDoc[],
+      pendingApplications: (applicationsRes.data ?? []) as unknown as Application[],
     });
     setLoading(false);
   }

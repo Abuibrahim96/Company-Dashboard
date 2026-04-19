@@ -11,7 +11,7 @@ const values = [
     icon: Users,
     title: 'Real Partnership',
     description:
-      'We're not just a dispatch service — we're your business partner. We invest in your success because when you win, we win.',
+      "We're not just a dispatch service — we're your business partner. We invest in your success because when you win, we win.",
   },
   {
     icon: TrendingUp,

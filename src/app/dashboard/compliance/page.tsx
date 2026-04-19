@@ -53,7 +53,7 @@ export default function CompliancePage() {
         .order("expires_at", { ascending: true });
 
       if (!error && data) {
-        setDocuments(data as Document[]);
+        setDocuments(data as unknown as Document[]);
       }
       setLoading(false);
     }

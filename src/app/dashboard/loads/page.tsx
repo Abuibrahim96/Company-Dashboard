@@ -43,7 +43,7 @@ export default function LoadsPage() {
         .order("created_at", { ascending: false });
 
       if (!error && data) {
-        setLoads(data as Load[]);
+        setLoads(data as unknown as Load[]);
       }
       setLoading(false);
     }

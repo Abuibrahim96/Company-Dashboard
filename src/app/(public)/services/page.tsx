@@ -31,7 +31,7 @@ const services = [
     icon: Phone,
     title: 'Driver Support',
     description:
-      'Real humans available when you need us. Whether you're dealing with a breakdown or a broker dispute, we have your back.',
+      "Real humans available when you need us. Whether you're dealing with a breakdown or a broker dispute, we have your back.",
   },
   {
     icon: MapPin,
