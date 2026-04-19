@@ -64,15 +64,15 @@ export default function Footer() {
               <li className="pt-1">
                 <span className="block">Phone</span>
                 <a
-                  href="tel:+18005551234"
+                  href="tel:+15033095090"
                   className="text-accent-500 hover:text-accent-400 transition-colors"
                 >
-                  1-800-555-1234
+                  (503) 309-5090
                 </a>
               </li>
               <li className="pt-1">
                 <span className="block">Hours</span>
-                <span>Mon–Fri, 7am – 6pm CST</span>
+                <span>Open 24/7</span>
               </li>
             </ul>
           </div>

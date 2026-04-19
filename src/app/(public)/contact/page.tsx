@@ -64,10 +64,10 @@ export default function ContactPage() {
               <div>
                 <p className="text-xs text-navy-400 uppercase tracking-wide mb-0.5">Phone</p>
                 <a
-                  href="tel:+15550000000"
+                  href="tel:+15033095090"
                   className="text-white hover:text-accent-400 transition-colors"
                 >
-                  (555) 000-0000
+                  (503) 309-5090
                 </a>
               </div>
             </li>
@@ -77,7 +77,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-xs text-navy-400 uppercase tracking-wide mb-0.5">MC / DOT</p>
-                <p className="text-white">MC-000000 / DOT-000000</p>
+                <p className="text-white">MC-1476965 / DOT-3960676</p>
               </div>
             </li>
           </ul>
@@ -132,7 +132,7 @@ export default function ContactPage() {
                 name="phone"
                 type="tel"
                 label="Phone Number"
-                placeholder="(555) 000-0000"
+                placeholder="(503) 309-5090"
                 value={form.phone}
                 onChange={handleChange}
               />
