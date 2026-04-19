@@ -377,28 +377,29 @@ export async function handleToolCall(
         cutoff30.setDate(cutoff30.getDate() + 30);
         const cutoff30Str = cutoff30.toISOString().split("T")[0];
 
+        const db = getSupabase();
         const [operatorsRes, trucksRes, activeLoadsRes, monthlyRevenueRes, totalDocsRes, expiringDocsRes] =
           await Promise.all([
-            supabase
+            db
               .from("operators")
               .select("id", { count: "exact", head: true })
               .eq("status", "active"),
-            supabase
+            db
               .from("trucks")
               .select("id", { count: "exact", head: true })
               .eq("status", "active"),
-            supabase
+            db
               .from("loads")
               .select("id", { count: "exact", head: true })
               .in("status", ["booked", "in_transit"]),
-            supabase
+            db
               .from("loads")
               .select("elite_cut")
               .gte("created_at", monthStart),
-            supabase
+            db
               .from("documents")
               .select("id", { count: "exact", head: true }),
-            supabase
+            db
               .from("documents")
               .select("id", { count: "exact", head: true })
               .lte("expiration_date", cutoff30Str),
