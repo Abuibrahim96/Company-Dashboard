@@ -71,7 +71,7 @@ export default function ClientsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Clients</h1>
+      <h1 className="text-2xl font-bold text-navy-950 dark:text-white mb-6">Clients</h1>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -80,10 +80,10 @@ export default function ClientsPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400" />
           <input
             type="text"
-            placeholder="Search clients…"
+            placeholder="Search clients..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 rounded-lg bg-navy-900/50 border border-navy-800 text-white placeholder-navy-400 text-sm focus:outline-none focus:border-accent-500"
+            className="w-full pl-9 pr-4 py-2 rounded-lg bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 text-navy-950 dark:text-white placeholder-navy-400 text-sm focus:outline-none focus:border-accent-500"
           />
         </div>
 
@@ -95,8 +95,8 @@ export default function ClientsPage() {
               onClick={() => setTypeFilter(opt.value)}
               className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 typeFilter === opt.value
-                  ? "bg-accent-500/20 text-accent-400 border border-accent-500/40"
-                  : "bg-navy-900/50 text-navy-400 border border-navy-800 hover:text-white hover:bg-navy-800/50"
+                  ? "bg-accent-50 dark:bg-accent-500/20 text-accent-400 border border-accent-500/40"
+                  : "bg-navy-50 dark:bg-navy-900/50 text-navy-500 dark:text-navy-400 border border-navy-200 dark:border-navy-800 hover:text-navy-950 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800/50"
               }`}
             >
               {opt.label}
@@ -106,27 +106,27 @@ export default function ClientsPage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-xl bg-navy-900/50 border border-navy-800 overflow-hidden">
+      <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy-800">
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Company</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Type</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Contact</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Phone</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Payment Terms</th>
+            <tr className="border-b border-navy-200 dark:border-navy-800">
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Company</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Type</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Contact</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Phone</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Payment Terms</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-navy-400">
-                  Loading clients…
+                <td colSpan={5} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
+                  Loading clients...
                 </td>
               </tr>
             ) : filtered.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-navy-400">
+                <td colSpan={5} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
                   No clients found.
                 </td>
               </tr>
@@ -135,15 +135,15 @@ export default function ClientsPage() {
                 <tr
                   key={client.id}
                   onClick={() => router.push(`/dashboard/clients/${client.id}`)}
-                  className="border-b border-navy-800/50 hover:bg-navy-800/30 transition-colors cursor-pointer"
+                  className="border-b border-navy-200/50 dark:border-navy-800/50 hover:bg-navy-100/50 dark:hover:bg-navy-800/30 transition-colors cursor-pointer"
                 >
-                  <td className="px-4 py-3 text-white font-medium">{client.company_name}</td>
+                  <td className="px-4 py-3 text-navy-950 dark:text-white font-medium">{client.company_name}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={client.type} />
                   </td>
-                  <td className="px-4 py-3 text-navy-300">{client.contact_name ?? "—"}</td>
-                  <td className="px-4 py-3 text-navy-300">{client.phone ?? "—"}</td>
-                  <td className="px-4 py-3 text-navy-300">{client.payment_terms ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{client.contact_name ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{client.phone ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{client.payment_terms ?? "—"}</td>
                 </tr>
               ))
             )}

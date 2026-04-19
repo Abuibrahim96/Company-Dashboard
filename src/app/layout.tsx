@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import ThemeProvider from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
   title: "Elite Truck Lines",
@@ -12,9 +13,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className="bg-navy-950 text-white font-sans min-h-screen">
-        {children}
+    <html lang="en" suppressHydrationWarning>
+      <body className="bg-white dark:bg-navy-950 text-navy-950 dark:text-white font-sans min-h-screen">
+        <ThemeProvider>{children}</ThemeProvider>
       </body>
     </html>
   );

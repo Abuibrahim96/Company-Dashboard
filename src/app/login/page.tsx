@@ -35,17 +35,17 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen bg-navy-950 flex items-center justify-center px-4">
+    <div className="min-h-screen bg-white dark:bg-navy-950 flex items-center justify-center px-4">
       <div className="w-full max-w-md">
-        <div className="bg-navy-900 border border-navy-700 rounded-2xl p-8 shadow-xl">
+        <div className="bg-navy-50 dark:bg-navy-900 border border-navy-200 dark:border-navy-700 rounded-2xl p-8 shadow-xl">
           {/* Logo */}
           <div className="text-center mb-8">
             <Link href="/" className="inline-block">
-              <span className="text-2xl font-extrabold tracking-widest text-white uppercase">
+              <span className="text-2xl font-extrabold tracking-widest text-navy-950 dark:text-white uppercase">
                 Elite Truck Lines
               </span>
             </Link>
-            <p className="mt-2 text-navy-300 text-sm">
+            <p className="mt-2 text-navy-600 dark:text-navy-300 text-sm">
               Sign in to your dashboard
             </p>
           </div>
@@ -85,7 +85,7 @@ export default function LoginPage() {
               disabled={loading}
               className="mt-2 w-full rounded-lg bg-accent-500 hover:bg-accent-600 text-white font-semibold py-2.5 transition-colors disabled:opacity-50 disabled:pointer-events-none"
             >
-              {loading ? "Signing in…" : "Sign in"}
+              {loading ? "Signing in..." : "Sign in"}
             </button>
           </form>
         </div>
@@ -94,7 +94,7 @@ export default function LoginPage() {
         <div className="mt-6 text-center">
           <Link
             href="/"
-            className="text-sm text-navy-400 hover:text-white transition-colors"
+            className="text-sm text-navy-500 dark:text-navy-400 hover:text-navy-950 dark:hover:text-white transition-colors"
           >
             &larr; Back to website
           </Link>

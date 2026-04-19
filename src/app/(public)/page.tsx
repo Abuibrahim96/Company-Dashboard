@@ -49,9 +49,9 @@ const ctaChecks = [
 
 export default function HomePage() {
   return (
-    <main className="min-h-screen bg-navy-950 text-white">
+    <main className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white">
       {/* Hero Section */}
-      <section className="relative overflow-hidden bg-gradient-to-b from-navy-950 via-navy-900 to-navy-950 py-24 md:py-36">
+      <section className="relative overflow-hidden bg-gradient-to-b from-navy-50 via-white to-navy-50 dark:from-navy-950 dark:via-navy-900 dark:to-navy-950 py-24 md:py-36">
         {/* Radial gradient accent glow — top right */}
         <div
           aria-hidden="true"
@@ -68,7 +68,7 @@ export default function HomePage() {
             <span className="text-accent-400">You Handle the Road.</span>
           </h1>
 
-          <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-300 md:text-xl">
+          <p className="mx-auto mt-6 max-w-2xl text-lg text-navy-600 dark:text-navy-300 md:text-xl">
             Elite Truck Lines partners with owner-operators and independent
             drivers — taking care of dispatch, compliance, billing, and support
             so you can stay focused on what you do best: driving.
@@ -85,7 +85,7 @@ export default function HomePage() {
 
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-lg border border-navy-600 px-7 py-3 text-base font-semibold text-white transition hover:bg-navy-800"
+              className="inline-flex items-center gap-2 rounded-lg border border-navy-300 dark:border-navy-600 px-7 py-3 text-base font-semibold text-navy-950 dark:text-white transition hover:bg-navy-100 dark:hover:bg-navy-800"
             >
               Our Services
             </Link>
@@ -94,15 +94,15 @@ export default function HomePage() {
       </section>
 
       {/* Stats Bar */}
-      <section className="border-y border-navy-800 bg-navy-900/50 py-10">
+      <section className="border-y border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 py-10">
         <div className="mx-auto max-w-4xl px-6">
-          <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-0 sm:divide-x sm:divide-navy-800">
+          <div className="flex flex-col items-center justify-center gap-10 sm:flex-row sm:gap-0 sm:divide-x sm:divide-navy-200 dark:sm:divide-navy-800">
             {stats.map(({ value, label }) => (
               <div key={label} className="flex flex-col items-center sm:px-16">
                 <span className="text-4xl font-extrabold text-accent-400">
                   {value}
                 </span>
-                <span className="mt-1 text-sm font-medium uppercase tracking-widest text-navy-400">
+                <span className="mt-1 text-sm font-medium uppercase tracking-widest text-navy-500 dark:text-navy-400">
                   {label}
                 </span>
               </div>
@@ -118,7 +118,7 @@ export default function HomePage() {
             <h2 className="text-3xl font-bold md:text-4xl">
               Everything You Need, Nothing You Don&apos;t
             </h2>
-            <p className="mt-4 text-navy-400">
+            <p className="mt-4 text-navy-500 dark:text-navy-400">
               Our full-service model means you keep more money and less stress.
             </p>
           </div>
@@ -127,13 +127,13 @@ export default function HomePage() {
             {features.map(({ icon: Icon, title, description }) => (
               <div
                 key={title}
-                className="rounded-xl border border-navy-800 bg-navy-900/50 p-6"
+                className="rounded-xl border border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 p-6"
               >
-                <div className="mb-4 inline-flex rounded-lg bg-accent-500/10 p-3">
+                <div className="mb-4 inline-flex rounded-lg bg-accent-50 dark:bg-accent-500/10 p-3">
                   <Icon className="h-6 w-6 text-accent-400" />
                 </div>
                 <h3 className="mb-2 text-lg font-semibold">{title}</h3>
-                <p className="text-sm leading-relaxed text-navy-400">
+                <p className="text-sm leading-relaxed text-navy-500 dark:text-navy-400">
                   {description}
                 </p>
               </div>
@@ -143,12 +143,12 @@ export default function HomePage() {
       </section>
 
       {/* CTA Section */}
-      <section className="border-t border-navy-800 bg-navy-900/50 py-20">
+      <section className="border-t border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 py-20">
         <div className="mx-auto max-w-3xl px-6 text-center">
           <h2 className="text-3xl font-bold md:text-4xl">
             Ready to Partner With Us?
           </h2>
-          <p className="mt-4 text-navy-400">
+          <p className="mt-4 text-navy-500 dark:text-navy-400">
             Join drivers who keep more of what they earn with none of the
             back-office headaches.
           </p>
@@ -157,7 +157,7 @@ export default function HomePage() {
             {ctaChecks.map((item) => (
               <li key={item} className="flex items-center gap-2">
                 <CheckCircle2 className="h-5 w-5 flex-shrink-0 text-green-400" />
-                <span className="text-navy-200">{item}</span>
+                <span className="text-navy-700 dark:text-navy-200">{item}</span>
               </li>
             ))}
           </ul>

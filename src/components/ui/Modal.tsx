@@ -35,17 +35,17 @@ function Modal({ open, onClose, title, children, className }: ModalProps) {
     >
       <div
         className={cn(
-          'relative w-full max-w-lg rounded-xl bg-navy-900 border border-navy-700 shadow-xl',
+          'relative w-full max-w-lg rounded-xl bg-white dark:bg-navy-900 border border-navy-200 dark:border-navy-700 shadow-xl',
           className
         )}
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
-        <div className="flex items-center justify-between px-6 py-4 border-b border-navy-700">
-          <h2 className="text-lg font-semibold text-white">{title}</h2>
+        <div className="flex items-center justify-between px-6 py-4 border-b border-navy-200 dark:border-navy-700">
+          <h2 className="text-lg font-semibold text-navy-950 dark:text-white">{title}</h2>
           <button
             onClick={onClose}
-            className="text-navy-400 hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500 rounded"
+            className="text-navy-500 dark:text-navy-400 hover:text-navy-950 dark:hover:text-white transition-colors focus:outline-none focus:ring-2 focus:ring-accent-500 rounded"
             aria-label="Close modal"
           >
             <X size={20} />

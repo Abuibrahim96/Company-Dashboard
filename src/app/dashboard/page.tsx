@@ -164,7 +164,7 @@ export default function DashboardOverview() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Overview</h1>
+      <h1 className="text-2xl font-bold text-navy-950 dark:text-white mb-6">Overview</h1>
 
       {/* KPI Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-5 gap-4 mb-8">
@@ -199,25 +199,25 @@ export default function DashboardOverview() {
       {/* Two-column detail grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Compliance Alerts */}
-        <div className="rounded-xl bg-navy-900/50 border border-navy-800 p-6">
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 p-6">
           <div className="flex items-center gap-2 mb-4">
             <FileWarning className="w-5 h-5 text-yellow-400" />
-            <h2 className="text-base font-semibold text-white">Compliance Alerts</h2>
+            <h2 className="text-base font-semibold text-navy-950 dark:text-white">Compliance Alerts</h2>
           </div>
 
           {loading ? (
-            <p className="text-sm text-navy-400">Loading…</p>
+            <p className="text-sm text-navy-500 dark:text-navy-400">Loading...</p>
           ) : data.expiringDocs.length === 0 ? (
-            <p className="text-sm text-navy-400">No expiring documents.</p>
+            <p className="text-sm text-navy-500 dark:text-navy-400">No expiring documents.</p>
           ) : (
             <ul className="space-y-3">
               {data.expiringDocs.map((doc) => (
                 <li key={doc.id} className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-white truncate">
+                    <p className="text-sm font-medium text-navy-950 dark:text-white truncate">
                       {doc.operators?.full_name ?? "Unknown Operator"}
                     </p>
-                    <p className="text-xs text-navy-400 capitalize">
+                    <p className="text-xs text-navy-500 dark:text-navy-400 capitalize">
                       {doc.document_type.replace(/_/g, " ")}
                       {doc.expiration_date && (
                         <> &middot; expires {formatDate(doc.expiration_date)}</>
@@ -232,23 +232,23 @@ export default function DashboardOverview() {
         </div>
 
         {/* New Applications */}
-        <div className="rounded-xl bg-navy-900/50 border border-navy-800 p-6">
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 p-6">
           <div className="flex items-center gap-2 mb-4">
             <Users className="w-5 h-5 text-accent-400" />
-            <h2 className="text-base font-semibold text-white">New Applications</h2>
+            <h2 className="text-base font-semibold text-navy-950 dark:text-white">New Applications</h2>
           </div>
 
           {loading ? (
-            <p className="text-sm text-navy-400">Loading…</p>
+            <p className="text-sm text-navy-500 dark:text-navy-400">Loading...</p>
           ) : data.pendingApplications.length === 0 ? (
-            <p className="text-sm text-navy-400">No pending applications.</p>
+            <p className="text-sm text-navy-500 dark:text-navy-400">No pending applications.</p>
           ) : (
             <ul className="space-y-3">
               {data.pendingApplications.map((app) => (
                 <li key={app.id} className="flex items-start justify-between gap-3">
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-white truncate">{app.full_name}</p>
-                    <p className="text-xs text-navy-400 truncate">
+                    <p className="text-sm font-medium text-navy-950 dark:text-white truncate">{app.full_name}</p>
+                    <p className="text-xs text-navy-500 dark:text-navy-400 truncate">
                       {app.phone} &middot; {app.email}
                     </p>
                   </div>

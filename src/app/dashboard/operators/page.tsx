@@ -70,7 +70,7 @@ export default function OperatorsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Operators</h1>
+      <h1 className="text-2xl font-bold text-navy-950 dark:text-white mb-6">Operators</h1>
 
       {/* Filters */}
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
@@ -78,16 +78,16 @@ export default function OperatorsPage() {
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-navy-400" />
           <input
             type="text"
-            placeholder="Search by name, phone, or CDL…"
+            placeholder="Search by name, phone, or CDL..."
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 bg-navy-800 border border-navy-700 rounded-lg text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-gold-500 text-sm"
+            className="w-full pl-10 pr-4 py-2 bg-navy-100 dark:bg-navy-800 border border-navy-300 dark:border-navy-700 rounded-lg text-navy-950 dark:text-white placeholder-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500 text-sm"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="px-4 py-2 bg-navy-800 border border-navy-700 rounded-lg text-white text-sm focus:outline-none focus:ring-2 focus:ring-gold-500"
+          className="px-4 py-2 bg-navy-100 dark:bg-navy-800 border border-navy-300 dark:border-navy-700 rounded-lg text-navy-950 dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-accent-500"
         >
           {STATUS_OPTIONS.map((opt) => (
             <option key={opt.value} value={opt.value}>
@@ -99,15 +99,15 @@ export default function OperatorsPage() {
 
       {/* Table */}
       {filtered.length === 0 ? (
-        <div className="text-center py-16 text-navy-400">
+        <div className="text-center py-16 text-navy-500 dark:text-navy-400">
           {operators.length === 0
             ? "No operators yet. Use the AI chat to add one."
             : "No operators match your filters."}
         </div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-navy-700">
+        <div className="overflow-x-auto rounded-xl border border-navy-200 dark:border-navy-700">
           <table className="w-full text-sm">
-            <thead className="bg-navy-800 text-navy-300 uppercase text-xs tracking-wide">
+            <thead className="bg-navy-100 dark:bg-navy-800 text-navy-600 dark:text-navy-300 uppercase text-xs tracking-wide">
               <tr>
                 <th className="px-4 py-3 text-left">Name</th>
                 <th className="px-4 py-3 text-left">Phone</th>
@@ -116,25 +116,25 @@ export default function OperatorsPage() {
                 <th className="px-4 py-3 text-left">Status</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-navy-700">
+            <tbody className="divide-y divide-navy-200 dark:divide-navy-700">
               {filtered.map((op) => (
                 <tr
                   key={op.id}
                   onClick={() => router.push(`/dashboard/operators/${op.id}`)}
-                  className="bg-navy-900 hover:bg-navy-800 cursor-pointer transition-colors"
+                  className="bg-white dark:bg-navy-900 hover:bg-navy-50 dark:hover:bg-navy-800 cursor-pointer transition-colors"
                 >
-                  <td className="px-4 py-3 font-medium text-white">
+                  <td className="px-4 py-3 font-medium text-navy-950 dark:text-white">
                     {op.name}
                   </td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {op.phone ?? "—"}
                   </td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {op.cdl_number
                       ? `${op.cdl_number}${op.cdl_class ? ` (${op.cdl_class})` : ""}`
                       : "—"}
                   </td>
-                  <td className="px-4 py-3 text-right text-navy-300">
+                  <td className="px-4 py-3 text-right text-navy-600 dark:text-navy-300">
                     {op.commission_pct != null
                       ? `${op.commission_pct}%`
                       : "—"}

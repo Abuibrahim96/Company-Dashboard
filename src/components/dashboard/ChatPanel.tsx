@@ -73,14 +73,14 @@ export default function ChatPanel() {
 
       {/* Slide-out panel */}
       <div
-        className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-navy-950 border-l border-navy-800 z-40 flex flex-col transition-transform duration-300 ${
+        className={`fixed top-0 right-0 h-full w-full sm:w-96 bg-white dark:bg-navy-950 border-l border-navy-200 dark:border-navy-800 z-40 flex flex-col transition-transform duration-300 ${
           open ? "translate-x-0" : "translate-x-full"
         }`}
       >
         {/* Header */}
-        <div className="h-16 flex flex-col justify-center px-4 border-b border-navy-800">
-          <p className="text-white font-semibold text-sm">Operations Assistant</p>
-          <p className="text-navy-400 text-xs">Powered by AI</p>
+        <div className="h-16 flex flex-col justify-center px-4 border-b border-navy-200 dark:border-navy-800">
+          <p className="text-navy-950 dark:text-white font-semibold text-sm">Operations Assistant</p>
+          <p className="text-navy-500 dark:text-navy-400 text-xs">Powered by AI</p>
         </div>
 
         {/* Messages */}
@@ -91,8 +91,10 @@ export default function ChatPanel() {
               className={`flex ${msg.role === "user" ? "justify-end" : "justify-start"}`}
             >
               <div
-                className={`max-w-[80%] px-3 py-2 rounded-xl text-sm text-white ${
-                  msg.role === "user" ? "bg-accent-500" : "bg-navy-800"
+                className={`max-w-[80%] px-3 py-2 rounded-xl text-sm ${
+                  msg.role === "user"
+                    ? "bg-accent-500 text-white"
+                    : "bg-navy-100 dark:bg-navy-800 text-navy-950 dark:text-white"
                 }`}
               >
                 {msg.content}
@@ -102,7 +104,7 @@ export default function ChatPanel() {
 
           {loading && (
             <div className="flex justify-start">
-              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-navy-800 text-sm text-navy-400">
+              <div className="flex items-center gap-2 px-3 py-2 rounded-xl bg-navy-100 dark:bg-navy-800 text-sm text-navy-500 dark:text-navy-400">
                 <Loader2 className="w-4 h-4 animate-spin" />
                 Thinking...
               </div>
@@ -113,7 +115,7 @@ export default function ChatPanel() {
         </div>
 
         {/* Input bar */}
-        <div className="p-4 border-t border-navy-800 flex gap-2">
+        <div className="p-4 border-t border-navy-200 dark:border-navy-800 flex gap-2">
           <input
             type="text"
             value={input}
@@ -121,7 +123,7 @@ export default function ChatPanel() {
             onKeyDown={handleKeyDown}
             placeholder="Ask anything..."
             disabled={loading}
-            className="flex-1 bg-navy-800 border border-navy-700 rounded-lg px-3 py-2 text-sm text-white placeholder-navy-400 focus:outline-none focus:border-accent-500 disabled:opacity-50"
+            className="flex-1 bg-navy-100 dark:bg-navy-800 border border-navy-300 dark:border-navy-700 rounded-lg px-3 py-2 text-sm text-navy-950 dark:text-white placeholder-navy-400 focus:outline-none focus:border-accent-500 disabled:opacity-50"
           />
           <button
             onClick={sendMessage}

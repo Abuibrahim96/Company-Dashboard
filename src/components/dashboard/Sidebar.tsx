@@ -32,16 +32,16 @@ export default function Sidebar() {
 
   return (
     <aside
-      className={`fixed top-0 left-0 h-full bg-navy-950 border-r border-navy-800 flex flex-col transition-all duration-300 z-40 ${
+      className={`fixed top-0 left-0 h-full bg-white dark:bg-navy-950 border-r border-navy-200 dark:border-navy-800 flex flex-col transition-all duration-300 z-40 ${
         collapsed ? "w-16" : "w-56"
       }`}
     >
       {/* Logo */}
-      <div className="flex items-center h-16 px-4 border-b border-navy-800 overflow-hidden">
+      <div className="flex items-center h-16 px-4 border-b border-navy-200 dark:border-navy-800 overflow-hidden">
         {collapsed ? (
           <span className="text-xl font-bold text-accent-400">E</span>
         ) : (
-          <span className="text-lg font-bold text-white whitespace-nowrap">
+          <span className="text-lg font-bold text-navy-950 dark:text-white whitespace-nowrap">
             Elite Truck Lines
           </span>
         )}
@@ -57,8 +57,8 @@ export default function Sidebar() {
               href={href}
               className={`flex items-center gap-3 mx-2 px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                 active
-                  ? "bg-accent-500/10 text-accent-400"
-                  : "text-navy-400 hover:text-white hover:bg-navy-800/50"
+                  ? "bg-accent-50 dark:bg-accent-500/10 text-accent-400"
+                  : "text-navy-500 dark:text-navy-400 hover:text-navy-950 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800/50"
               }`}
             >
               <Icon className="w-5 h-5 flex-shrink-0" />
@@ -71,10 +71,10 @@ export default function Sidebar() {
       </nav>
 
       {/* Collapse toggle */}
-      <div className="border-t border-navy-800 p-2">
+      <div className="border-t border-navy-200 dark:border-navy-800 p-2">
         <button
           onClick={() => setCollapsed(!collapsed)}
-          className="flex items-center justify-center w-full py-2 rounded-lg text-navy-400 hover:text-white hover:bg-navy-800/50 transition-colors"
+          className="flex items-center justify-center w-full py-2 rounded-lg text-navy-500 dark:text-navy-400 hover:text-navy-950 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800/50 transition-colors"
           aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
         >
           {collapsed ? (

@@ -74,7 +74,7 @@ export default function ClientDetailPage() {
   if (loading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-navy-400">Loading client…</p>
+        <p className="text-navy-500 dark:text-navy-400">Loading client...</p>
       </div>
     );
   }
@@ -82,7 +82,7 @@ export default function ClientDetailPage() {
   if (!client) {
     return (
       <div className="flex items-center justify-center h-64">
-        <p className="text-navy-400">Client not found.</p>
+        <p className="text-navy-500 dark:text-navy-400">Client not found.</p>
       </div>
     );
   }
@@ -99,7 +99,7 @@ export default function ClientDetailPage() {
       {/* Back link */}
       <Link
         href="/dashboard/clients"
-        className="inline-flex items-center gap-2 text-sm text-navy-400 hover:text-white transition-colors mb-6"
+        className="inline-flex items-center gap-2 text-sm text-navy-500 dark:text-navy-400 hover:text-navy-950 dark:hover:text-white transition-colors mb-6"
       >
         <ArrowLeft className="w-4 h-4" />
         Back to Clients
@@ -108,9 +108,9 @@ export default function ClientDetailPage() {
       {/* Header */}
       <div className="flex items-center gap-4 mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-white">{client.company_name}</h1>
+          <h1 className="text-2xl font-bold text-navy-950 dark:text-white">{client.company_name}</h1>
           {client.contact_name && (
-            <p className="text-sm text-navy-400 mt-0.5">{client.contact_name}</p>
+            <p className="text-sm text-navy-500 dark:text-navy-400 mt-0.5">{client.contact_name}</p>
           )}
         </div>
         <StatusBadge status={client.type} />
@@ -121,50 +121,50 @@ export default function ClientDetailPage() {
         {infoCards.map(({ icon: Icon, label, value }) => (
           <div
             key={label}
-            className="rounded-xl bg-navy-900/50 border border-navy-800 p-4"
+            className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 p-4"
           >
             <div className="flex items-center gap-2 mb-2">
               <Icon className="w-4 h-4 text-accent-400" />
-              <p className="text-xs text-navy-400">{label}</p>
+              <p className="text-xs text-navy-500 dark:text-navy-400">{label}</p>
             </div>
-            <p className="text-sm text-white font-medium break-all">{value}</p>
+            <p className="text-sm text-navy-950 dark:text-white font-medium break-all">{value}</p>
           </div>
         ))}
       </div>
 
       {/* Payment Terms */}
       {client.payment_terms && (
-        <div className="rounded-xl bg-navy-900/50 border border-navy-800 p-4 mb-6">
-          <p className="text-xs text-navy-400 mb-1">Payment Terms</p>
-          <p className="text-sm text-white">{client.payment_terms}</p>
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 p-4 mb-6">
+          <p className="text-xs text-navy-500 dark:text-navy-400 mb-1">Payment Terms</p>
+          <p className="text-sm text-navy-950 dark:text-white">{client.payment_terms}</p>
         </div>
       )}
 
       {/* Notes */}
       {client.notes && (
-        <div className="rounded-xl bg-navy-900/50 border border-navy-800 p-4 mb-6">
-          <p className="text-xs text-navy-400 mb-2">Notes</p>
-          <p className="text-sm text-navy-300 whitespace-pre-wrap">{client.notes}</p>
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 p-4 mb-6">
+          <p className="text-xs text-navy-500 dark:text-navy-400 mb-2">Notes</p>
+          <p className="text-sm text-navy-600 dark:text-navy-300 whitespace-pre-wrap">{client.notes}</p>
         </div>
       )}
 
       {/* Load History */}
-      <h2 className="text-lg font-semibold text-white mb-3">Load History</h2>
-      <div className="rounded-xl bg-navy-900/50 border border-navy-800 overflow-hidden">
+      <h2 className="text-lg font-semibold text-navy-950 dark:text-white mb-3">Load History</h2>
+      <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy-800">
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Load #</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Operator</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Route</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Rate</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Status</th>
+            <tr className="border-b border-navy-200 dark:border-navy-800">
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Load #</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Operator</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Route</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Rate</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
             {loads.length === 0 ? (
               <tr>
-                <td colSpan={5} className="px-4 py-8 text-center text-navy-400">
+                <td colSpan={5} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
                   No loads found for this client.
                 </td>
               </tr>
@@ -172,16 +172,16 @@ export default function ClientDetailPage() {
               loads.map((load) => (
                 <tr
                   key={load.id}
-                  className="border-b border-navy-800/50 hover:bg-navy-800/30 transition-colors"
+                  className="border-b border-navy-200/50 dark:border-navy-800/50 hover:bg-navy-100/50 dark:hover:bg-navy-800/30 transition-colors"
                 >
-                  <td className="px-4 py-3 text-white font-mono text-xs">{load.load_number}</td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-950 dark:text-white font-mono text-xs">{load.load_number}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {load.operators?.full_name ?? "—"}
                   </td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {load.origin} → {load.destination}
                   </td>
-                  <td className="px-4 py-3 text-white">{formatCurrency(load.rate)}</td>
+                  <td className="px-4 py-3 text-navy-950 dark:text-white">{formatCurrency(load.rate)}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={load.status} />
                   </td>

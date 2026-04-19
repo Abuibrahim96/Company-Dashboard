@@ -98,21 +98,21 @@ export default function CompliancePage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Compliance</h1>
+      <h1 className="text-2xl font-bold text-navy-950 dark:text-white mb-6">Compliance</h1>
 
       {/* Summary Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-6">
-        <div className="rounded-xl bg-navy-900/50 border border-red-500/30 p-4">
-          <p className="text-sm text-navy-400 mb-1">Expired</p>
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-red-500/30 p-4">
+          <p className="text-sm text-navy-500 dark:text-navy-400 mb-1">Expired</p>
           <p className="text-2xl font-bold text-red-400">{expiredCount}</p>
         </div>
-        <div className="rounded-xl bg-navy-900/50 border border-yellow-500/30 p-4">
-          <p className="text-sm text-navy-400 mb-1">Expiring Soon</p>
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-yellow-500/30 p-4">
+          <p className="text-sm text-navy-500 dark:text-navy-400 mb-1">Expiring Soon</p>
           <p className="text-2xl font-bold text-yellow-400">{expiringSoonCount}</p>
-          <p className="text-xs text-navy-400 mt-0.5">Within 30 days</p>
+          <p className="text-xs text-navy-500 dark:text-navy-400 mt-0.5">Within 30 days</p>
         </div>
-        <div className="rounded-xl bg-navy-900/50 border border-green-500/30 p-4">
-          <p className="text-sm text-navy-400 mb-1">Valid</p>
+        <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-green-500/30 p-4">
+          <p className="text-sm text-navy-500 dark:text-navy-400 mb-1">Valid</p>
           <p className="text-2xl font-bold text-green-400">{validCount}</p>
         </div>
       </div>
@@ -125,8 +125,8 @@ export default function CompliancePage() {
             onClick={() => setFilter(opt.value)}
             className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === opt.value
-                ? "bg-accent-500/20 text-accent-400 border border-accent-500/40"
-                : "bg-navy-900/50 text-navy-400 border border-navy-800 hover:text-white hover:bg-navy-800/50"
+                ? "bg-accent-50 dark:bg-accent-500/20 text-accent-400 border border-accent-500/40"
+                : "bg-navy-50 dark:bg-navy-900/50 text-navy-500 dark:text-navy-400 border border-navy-200 dark:border-navy-800 hover:text-navy-950 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800/50"
             }`}
           >
             {opt.label}
@@ -135,28 +135,28 @@ export default function CompliancePage() {
       </div>
 
       {/* Table */}
-      <div className="rounded-xl bg-navy-900/50 border border-navy-800 overflow-hidden">
+      <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy-800">
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Owner</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Document Type</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Number</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Expires</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Days Left</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Status</th>
+            <tr className="border-b border-navy-200 dark:border-navy-800">
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Owner</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Document Type</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Number</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Expires</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Days Left</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-navy-400">
-                  Loading documents…
+                <td colSpan={6} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
+                  Loading documents...
                 </td>
               </tr>
             ) : filtered.length === 0 ? (
               <tr>
-                <td colSpan={6} className="px-4 py-8 text-center text-navy-400">
+                <td colSpan={6} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
                   No documents found.
                 </td>
               </tr>
@@ -166,16 +166,16 @@ export default function CompliancePage() {
                 return (
                   <tr
                     key={doc.id}
-                    className="border-b border-navy-800/50 hover:bg-navy-800/30 transition-colors"
+                    className="border-b border-navy-200/50 dark:border-navy-800/50 hover:bg-navy-100/50 dark:hover:bg-navy-800/30 transition-colors"
                   >
-                    <td className="px-4 py-3 text-white">{ownerLabel(doc)}</td>
-                    <td className="px-4 py-3 text-navy-300 capitalize">
+                    <td className="px-4 py-3 text-navy-950 dark:text-white">{ownerLabel(doc)}</td>
+                    <td className="px-4 py-3 text-navy-600 dark:text-navy-300 capitalize">
                       {doc.doc_type.replace(/_/g, " ")}
                     </td>
-                    <td className="px-4 py-3 text-navy-300 font-mono text-xs">
+                    <td className="px-4 py-3 text-navy-600 dark:text-navy-300 font-mono text-xs">
                       {doc.doc_number ?? "—"}
                     </td>
-                    <td className="px-4 py-3 text-navy-300">
+                    <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                       {new Date(doc.expires_at).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",

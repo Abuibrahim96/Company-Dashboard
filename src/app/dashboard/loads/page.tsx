@@ -73,7 +73,7 @@ export default function LoadsPage() {
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-white mb-6">Loads</h1>
+      <h1 className="text-2xl font-bold text-navy-950 dark:text-white mb-6">Loads</h1>
 
       {/* Status filter */}
       <div className="flex gap-2 flex-wrap mb-4">
@@ -83,8 +83,8 @@ export default function LoadsPage() {
             onClick={() => setStatusFilter(opt.value)}
             className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
               statusFilter === opt.value
-                ? "bg-accent-500/20 text-accent-400 border border-accent-500/40"
-                : "bg-navy-900/50 text-navy-400 border border-navy-800 hover:text-white hover:bg-navy-800/50"
+                ? "bg-accent-50 dark:bg-accent-500/20 text-accent-400 border border-accent-500/40"
+                : "bg-navy-50 dark:bg-navy-900/50 text-navy-500 dark:text-navy-400 border border-navy-200 dark:border-navy-800 hover:text-navy-950 dark:hover:text-white hover:bg-navy-100 dark:hover:bg-navy-800/50"
             }`}
           >
             {opt.label}
@@ -95,11 +95,11 @@ export default function LoadsPage() {
       {/* Summary line */}
       {!loading && (
         <div className="flex gap-6 mb-6 text-sm">
-          <span className="text-navy-400">
+          <span className="text-navy-500 dark:text-navy-400">
             Total Gross:{" "}
-            <span className="text-white font-semibold">{formatCurrency(totalGross)}</span>
+            <span className="text-navy-950 dark:text-white font-semibold">{formatCurrency(totalGross)}</span>
           </span>
-          <span className="text-navy-400">
+          <span className="text-navy-500 dark:text-navy-400">
             Total Elite Cut:{" "}
             <span className="text-accent-400 font-semibold">{formatCurrency(totalEliteCut)}</span>
           </span>
@@ -107,29 +107,29 @@ export default function LoadsPage() {
       )}
 
       {/* Table */}
-      <div className="rounded-xl bg-navy-900/50 border border-navy-800 overflow-hidden">
+      <div className="rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 overflow-hidden">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy-800">
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Load #</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Operator</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Client</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Route</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Rate</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Elite Cut</th>
-              <th className="px-4 py-3 text-left text-navy-400 font-medium">Status</th>
+            <tr className="border-b border-navy-200 dark:border-navy-800">
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Load #</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Operator</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Client</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Route</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Rate</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Elite Cut</th>
+              <th className="px-4 py-3 text-left text-navy-500 dark:text-navy-400 font-medium">Status</th>
             </tr>
           </thead>
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-navy-400">
-                  Loading loads…
+                <td colSpan={7} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
+                  Loading loads...
                 </td>
               </tr>
             ) : filtered.length === 0 ? (
               <tr>
-                <td colSpan={7} className="px-4 py-8 text-center text-navy-400">
+                <td colSpan={7} className="px-4 py-8 text-center text-navy-500 dark:text-navy-400">
                   No loads found.
                 </td>
               </tr>
@@ -137,19 +137,19 @@ export default function LoadsPage() {
               filtered.map((load) => (
                 <tr
                   key={load.id}
-                  className="border-b border-navy-800/50 hover:bg-navy-800/30 transition-colors"
+                  className="border-b border-navy-200/50 dark:border-navy-800/50 hover:bg-navy-100/50 dark:hover:bg-navy-800/30 transition-colors"
                 >
-                  <td className="px-4 py-3 text-white font-mono text-xs">{load.load_number}</td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-950 dark:text-white font-mono text-xs">{load.load_number}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {load.operators?.full_name ?? "—"}
                   </td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {load.clients?.company_name ?? "—"}
                   </td>
-                  <td className="px-4 py-3 text-navy-300">
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {load.origin} → {load.destination}
                   </td>
-                  <td className="px-4 py-3 text-white">{formatCurrency(load.rate)}</td>
+                  <td className="px-4 py-3 text-navy-950 dark:text-white">{formatCurrency(load.rate)}</td>
                   <td className="px-4 py-3 text-accent-400 font-medium">
                     {formatCurrency(load.elite_cut)}
                   </td>

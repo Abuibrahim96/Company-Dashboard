@@ -49,11 +49,11 @@ const services = [
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-navy-950 text-white">
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white">
       {/* Header */}
       <section className="px-6 py-20 max-w-4xl mx-auto text-center">
-        <h1 className="text-4xl font-bold text-white mb-4">What We Do for You</h1>
-        <p className="text-navy-300 text-lg leading-relaxed">
+        <h1 className="text-4xl font-bold text-navy-950 dark:text-white mb-4">What We Do for You</h1>
+        <p className="text-navy-600 dark:text-navy-300 text-lg leading-relaxed">
           From finding freight to getting you paid, Elite Truck Lines handles every part of running
           a trucking operation — so you can stay focused on driving.
         </p>
@@ -65,20 +65,20 @@ export default function ServicesPage() {
           {services.map(({ icon: Icon, title, description }) => (
             <div
               key={title}
-              className="p-6 rounded-xl bg-navy-900/50 border border-navy-800 flex flex-col gap-4"
+              className="p-6 rounded-xl bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 flex flex-col gap-4"
             >
-              <div className="w-10 h-10 rounded-lg bg-accent-500/20 flex items-center justify-center">
+              <div className="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-500/20 flex items-center justify-center">
                 <Icon className="w-5 h-5 text-accent-400" />
               </div>
-              <h3 className="text-lg font-semibold text-white">{title}</h3>
-              <p className="text-navy-300 text-sm leading-relaxed">{description}</p>
+              <h3 className="text-lg font-semibold text-navy-950 dark:text-white">{title}</h3>
+              <p className="text-navy-600 dark:text-navy-300 text-sm leading-relaxed">{description}</p>
             </div>
           ))}
         </div>
 
         {/* CTA */}
         <div className="mt-16 text-center">
-          <p className="text-navy-300 mb-6 text-lg">Ready to let us handle the heavy lifting?</p>
+          <p className="text-navy-600 dark:text-navy-300 mb-6 text-lg">Ready to let us handle the heavy lifting?</p>
           <Link
             href="/drive-with-us"
             className="inline-flex items-center justify-center px-8 py-3 rounded-lg bg-accent-500 text-white font-semibold text-lg hover:bg-accent-600 transition-colors"

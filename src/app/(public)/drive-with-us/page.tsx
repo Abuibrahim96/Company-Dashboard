@@ -92,15 +92,15 @@ export default function DriveWithUsPage() {
   }
 
   return (
-    <main className="min-h-screen bg-navy-950 text-white">
+    <main className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
         <div className="grid gap-16 lg:grid-cols-2">
           {/* Left Side */}
           <div>
-            <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl">
+            <h1 className="text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:text-5xl">
               Drive With Us
             </h1>
-            <p className="mt-6 text-lg leading-8 text-navy-300">
+            <p className="mt-6 text-lg leading-8 text-navy-600 dark:text-navy-300">
               Join Elite Truck Lines as an owner-operator and partner with a team that puts
               drivers first. We handle the back office so you can focus on what you do
               best — hauling freight and growing your business.
@@ -111,14 +111,14 @@ export default function DriveWithUsPage() {
               {benefits.map((benefit) => (
                 <li key={benefit} className="flex items-start gap-3">
                   <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
-                  <span className="text-navy-200">{benefit}</span>
+                  <span className="text-navy-700 dark:text-navy-200">{benefit}</span>
                 </li>
               ))}
             </ul>
 
             {/* How It Works */}
-            <div className="mt-12 rounded-xl border border-navy-800 bg-navy-900/50 p-6">
-              <h2 className="mb-6 text-xl font-semibold text-white">How It Works</h2>
+            <div className="mt-12 rounded-xl border border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 p-6">
+              <h2 className="mb-6 text-xl font-semibold text-navy-950 dark:text-white">How It Works</h2>
               <ol className="space-y-5">
                 {howItWorksSteps.map(({ step, title, description }) => (
                   <li key={step} className="flex gap-4">
@@ -126,8 +126,8 @@ export default function DriveWithUsPage() {
                       {step}
                     </div>
                     <div>
-                      <p className="font-medium text-white">{title}</p>
-                      <p className="mt-0.5 text-sm text-navy-400">{description}</p>
+                      <p className="font-medium text-navy-950 dark:text-white">{title}</p>
+                      <p className="mt-0.5 text-sm text-navy-500 dark:text-navy-400">{description}</p>
                     </div>
                   </li>
                 ))}
@@ -136,19 +136,19 @@ export default function DriveWithUsPage() {
           </div>
 
           {/* Right Side — Application Form */}
-          <div className="rounded-2xl border border-navy-800 bg-navy-900/50 p-8">
+          <div className="rounded-2xl border border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 p-8">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
                 <CheckCircle2 className="mb-4 h-16 w-16 text-green-500" />
-                <h2 className="text-2xl font-bold text-white">Application Submitted!</h2>
-                <p className="mt-3 text-navy-300">
+                <h2 className="text-2xl font-bold text-navy-950 dark:text-white">Application Submitted!</h2>
+                <p className="mt-3 text-navy-600 dark:text-navy-300">
                   Thank you for applying to drive with Elite Truck Lines. Our team will
                   review your application and reach out within 1-2 business days.
                 </p>
               </div>
             ) : (
               <>
-                <h2 className="mb-6 text-2xl font-bold text-white">Apply Now</h2>
+                <h2 className="mb-6 text-2xl font-bold text-navy-950 dark:text-white">Apply Now</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
                   {/* Personal Info */}
                   <Input
@@ -233,7 +233,7 @@ export default function DriveWithUsPage() {
 
                   {/* Notes */}
                   <div className="flex flex-col gap-1">
-                    <label htmlFor="notes" className="text-sm font-medium text-navy-300">
+                    <label htmlFor="notes" className="text-sm font-medium text-navy-600 dark:text-navy-300">
                       Additional Notes
                     </label>
                     <textarea
@@ -243,7 +243,7 @@ export default function DriveWithUsPage() {
                       placeholder="Anything else you'd like us to know..."
                       value={form.notes}
                       onChange={handleChange}
-                      className="rounded-lg border border-navy-700 bg-navy-900 px-3 py-2 text-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
+                      className="rounded-lg border border-navy-300 dark:border-navy-700 bg-white dark:bg-navy-900 px-3 py-2 text-navy-950 dark:text-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
                     />
                   </div>
 
@@ -261,7 +261,7 @@ export default function DriveWithUsPage() {
                     className="w-full"
                     disabled={loading}
                   >
-                    {loading ? "Submitting…" : "Submit Application"}
+                    {loading ? "Submitting..." : "Submit Application"}
                   </Button>
                 </form>
               </>
