@@ -4,12 +4,11 @@ import { SYSTEM_PROMPT } from "../../../../agent/system-prompt";
 import { TOOLS } from "../../../../agent/tools";
 import { handleToolCall } from "../../../../agent/tool-handlers";
 
-const anthropic = new Anthropic();
-
 const MAX_ITERATIONS = 10;
 
 export async function POST(request: NextRequest) {
   try {
+    const anthropic = new Anthropic();
     const { messages } = (await request.json()) as {
       messages: { role: "user" | "assistant"; content: string }[];
     };

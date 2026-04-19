@@ -1,9 +1,11 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+function getSupabase() {
+  return createClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    process.env.SUPABASE_SERVICE_ROLE_KEY!
+  );
+}
 
 function generateLoadNumber(): string {
   const year = new Date().getFullYear();
@@ -28,7 +30,7 @@ export async function handleToolCall(
           cdl_number?: string;
           commission_rate?: number;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("operators")
           .insert({
             full_name,
@@ -51,7 +53,7 @@ export async function handleToolCall(
           operator_id: string;
           [key: string]: unknown;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("operators")
           .update(updates)
           .eq("id", operator_id)
@@ -63,7 +65,7 @@ export async function handleToolCall(
 
       case "remove_operator": {
         const { operator_id } = input as { operator_id: string };
-        const { error } = await supabase
+        const { error } = await getSupabase()
           .from("operators")
           .delete()
           .eq("id", operator_id);
@@ -76,7 +78,7 @@ export async function handleToolCall(
           query?: string;
           status?: string;
         };
-        let q = supabase.from("operators").select("*");
+        let q = getSupabase().from("operators").select("*");
         if (query) q = q.ilike("full_name", `%${query}%`);
         if (status) q = q.eq("status", status);
         const { data, error } = await q.order("full_name");
@@ -96,7 +98,7 @@ export async function handleToolCall(
           license_state?: string;
           color?: string;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("trucks")
           .insert({
             operator_id,
@@ -119,7 +121,7 @@ export async function handleToolCall(
           truck_id: string;
           [key: string]: unknown;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("trucks")
           .update(updates)
           .eq("id", truck_id)
@@ -148,7 +150,7 @@ export async function handleToolCall(
           expiration_date: string;
           notes?: string;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("documents")
           .insert({
             operator_id: operator_id || null,
@@ -171,7 +173,7 @@ export async function handleToolCall(
         cutoff.setDate(cutoff.getDate() + days);
         const cutoffStr = cutoff.toISOString().split("T")[0];
 
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("documents")
           .select("*, operators(full_name), trucks(make, model, vin)")
           .lte("expiration_date", cutoffStr)
@@ -203,7 +205,7 @@ export async function handleToolCall(
           payment_terms?: string;
           notes?: string;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("clients")
           .insert({
             company_name,
@@ -224,7 +226,7 @@ export async function handleToolCall(
 
       case "search_clients": {
         const { query, type } = input as { query?: string; type?: string };
-        let q = supabase.from("clients").select("*");
+        let q = getSupabase().from("clients").select("*");
         if (query) q = q.ilike("company_name", `%${query}%`);
         if (type) q = q.eq("type", type);
         const { data, error } = await q.order("company_name");
@@ -237,7 +239,7 @@ export async function handleToolCall(
           client_id: string;
           [key: string]: unknown;
         };
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("clients")
           .update(updates)
           .eq("id", client_id)
@@ -276,7 +278,7 @@ export async function handleToolCall(
         };
 
         // Fetch operator's commission rate
-        const { data: operator, error: opError } = await supabase
+        const { data: operator, error: opError } = await getSupabase()
           .from("operators")
           .select("commission_rate")
           .eq("id", operator_id)
@@ -289,7 +291,7 @@ export async function handleToolCall(
         const operatorPay = Math.round((rate - eliteCut) * 100) / 100;
         const loadNumber = generateLoadNumber();
 
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("loads")
           .insert({
             load_number: loadNumber,
@@ -322,7 +324,7 @@ export async function handleToolCall(
 
         // If rate is being updated, recalculate financials
         if (updates.rate) {
-          const { data: existingLoad } = await supabase
+          const { data: existingLoad } = await getSupabase()
             .from("loads")
             .select("operator_id, commission_rate")
             .eq("id", load_id)
@@ -336,7 +338,7 @@ export async function handleToolCall(
           }
         }
 
-        const { data, error } = await supabase
+        const { data, error } = await getSupabase()
           .from("loads")
           .update(updates)
           .eq("id", load_id)
@@ -352,7 +354,7 @@ export async function handleToolCall(
           client_id?: string;
           status?: string;
         };
-        let q = supabase
+        let q = getSupabase()
           .from("loads")
           .select("*, operators(full_name), clients(company_name)");
         if (operator_id) q = q.eq("operator_id", operator_id);
@@ -427,7 +429,7 @@ export async function handleToolCall(
       // ── Applications ─────────────────────────────────────
       case "get_applications": {
         const { status } = input as { status?: string };
-        let q = supabase.from("applications").select("*");
+        let q = getSupabase().from("applications").select("*");
         if (status) q = q.eq("status", status);
         const { data, error } = await q.order("created_at", {
           ascending: false,
@@ -443,7 +445,7 @@ export async function handleToolCall(
         const { application_id } = input as { application_id: string };
 
         // 1. Fetch the application
-        const { data: app, error: appError } = await supabase
+        const { data: app, error: appError } = await getSupabase()
           .from("applications")
           .select("*")
           .eq("id", application_id)
@@ -458,7 +460,7 @@ export async function handleToolCall(
           });
 
         // 2. Create operator
-        const { data: operator, error: opError } = await supabase
+        const { data: operator, error: opError } = await getSupabase()
           .from("operators")
           .insert({
             full_name: app.full_name,
@@ -479,7 +481,7 @@ export async function handleToolCall(
         // 3. Optionally create truck if truck info exists
         let truck = null;
         if (app.truck_make && app.truck_model) {
-          const { data: truckData, error: truckError } = await supabase
+          const { data: truckData, error: truckError } = await getSupabase()
             .from("trucks")
             .insert({
               operator_id: operator.id,
@@ -493,7 +495,7 @@ export async function handleToolCall(
         }
 
         // 4. Update application status
-        await supabase
+        await getSupabase()
           .from("applications")
           .update({ status: "onboarded" })
           .eq("id", application_id);
