@@ -19,7 +19,7 @@ const howItWorksSteps = [
   { step: 1, title: "Submit Your Application", description: "Fill out the form with your details and truck information." },
   { step: 2, title: "Review & Onboarding Call", description: "Our team reviews your application and schedules a quick intro call." },
   { step: 3, title: "Complete Compliance Setup", description: "We handle the paperwork, DOT compliance, and get you carrier-ready." },
-  { step: 4, title: "Start Hauling", description: "Get matched with consistent freight and hit the road under our authority." },
+  { step: 4, title: "Start Hauling", description: "Get matched with consistent freight and hit the road." },
 ];
 
 const cdlClassOptions = [
@@ -93,40 +93,39 @@ export default function DriveWithUsPage() {
 
   return (
     <main className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white">
-      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid gap-16 lg:grid-cols-2">
+      <div className="mx-auto max-w-6xl px-6 py-24 sm:py-32">
+        <div className="grid gap-20 lg:grid-cols-2 lg:gap-16">
           {/* Left Side */}
-          <div>
-            <h1 className="text-4xl font-bold tracking-tight text-navy-950 dark:text-white sm:text-5xl">
+          <div className="animate-fade-in">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight">
               Drive With Us
             </h1>
-            <p className="mt-6 text-lg leading-8 text-navy-600 dark:text-navy-300">
-              Join Elite Truck Lines as an owner-operator and partner with a team that puts
-              drivers first. We handle the back office so you can focus on what you do
-              best — hauling freight and growing your business.
+            <p className="mt-6 text-lg text-navy-500 dark:text-navy-400 leading-relaxed max-w-md">
+              Partner with a team that puts drivers first. We handle the back office
+              so you can focus on hauling freight.
             </p>
 
             {/* Benefits */}
-            <ul className="mt-10 space-y-4">
+            <ul className="mt-10 space-y-3">
               {benefits.map((benefit) => (
-                <li key={benefit} className="flex items-start gap-3">
-                  <CheckCircle2 className="mt-0.5 h-5 w-5 flex-shrink-0 text-green-500" />
-                  <span className="text-navy-700 dark:text-navy-200">{benefit}</span>
+                <li key={benefit} className="flex items-center gap-3 text-sm">
+                  <CheckCircle2 className="h-4 w-4 flex-shrink-0 text-accent-500" />
+                  <span className="text-navy-600 dark:text-navy-300">{benefit}</span>
                 </li>
               ))}
             </ul>
 
             {/* How It Works */}
-            <div className="mt-12 rounded-xl border border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 p-6">
-              <h2 className="mb-6 text-xl font-semibold text-navy-950 dark:text-white">How It Works</h2>
-              <ol className="space-y-5">
+            <div className="mt-16">
+              <h2 className="text-lg font-semibold mb-8">How It Works</h2>
+              <ol className="space-y-6">
                 {howItWorksSteps.map(({ step, title, description }) => (
                   <li key={step} className="flex gap-4">
-                    <div className="flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-accent-500 text-sm font-bold text-white">
+                    <span className="flex h-7 w-7 flex-shrink-0 items-center justify-center rounded-full bg-navy-100 dark:bg-navy-800 text-xs font-semibold text-navy-600 dark:text-navy-300">
                       {step}
-                    </div>
+                    </span>
                     <div>
-                      <p className="font-medium text-navy-950 dark:text-white">{title}</p>
+                      <p className="font-medium text-sm">{title}</p>
                       <p className="mt-0.5 text-sm text-navy-500 dark:text-navy-400">{description}</p>
                     </div>
                   </li>
@@ -136,21 +135,19 @@ export default function DriveWithUsPage() {
           </div>
 
           {/* Right Side — Application Form */}
-          <div className="rounded-2xl border border-navy-200 dark:border-navy-800 bg-navy-50 dark:bg-navy-900/50 p-8">
+          <div className="rounded-2xl bg-navy-50/50 dark:bg-navy-900/30 p-8 sm:p-10 h-fit">
             {submitted ? (
               <div className="flex flex-col items-center justify-center py-16 text-center">
-                <CheckCircle2 className="mb-4 h-16 w-16 text-green-500" />
-                <h2 className="text-2xl font-bold text-navy-950 dark:text-white">Application Submitted!</h2>
-                <p className="mt-3 text-navy-600 dark:text-navy-300">
-                  Thank you for applying to drive with Elite Truck Lines. Our team will
-                  review your application and reach out within 1-2 business days.
+                <CheckCircle2 className="mb-4 h-12 w-12 text-green-500" />
+                <h2 className="text-2xl font-bold">Application Submitted</h2>
+                <p className="mt-3 text-navy-500 dark:text-navy-400 text-sm">
+                  Our team will review your application and reach out within 1-2 business days.
                 </p>
               </div>
             ) : (
               <>
-                <h2 className="mb-6 text-2xl font-bold text-navy-950 dark:text-white">Apply Now</h2>
+                <h2 className="mb-8 text-xl font-semibold">Apply Now</h2>
                 <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Personal Info */}
                   <Input
                     id="full_name"
                     name="full_name"
@@ -181,7 +178,6 @@ export default function DriveWithUsPage() {
                     onChange={handleChange}
                   />
 
-                  {/* CDL Class */}
                   <Select
                     id="cdl_class"
                     name="cdl_class"
@@ -191,7 +187,6 @@ export default function DriveWithUsPage() {
                     onChange={handleChange}
                   />
 
-                  {/* Truck Info — 3-col grid */}
                   <div className="grid grid-cols-3 gap-3">
                     <Input
                       id="truck_year"
@@ -219,7 +214,6 @@ export default function DriveWithUsPage() {
                     />
                   </div>
 
-                  {/* Number of Trucks */}
                   <Input
                     id="num_trucks"
                     name="num_trucks"
@@ -231,8 +225,7 @@ export default function DriveWithUsPage() {
                     onChange={handleChange}
                   />
 
-                  {/* Notes */}
-                  <div className="flex flex-col gap-1">
+                  <div className="flex flex-col gap-1.5">
                     <label htmlFor="notes" className="text-sm font-medium text-navy-600 dark:text-navy-300">
                       Additional Notes
                     </label>
@@ -243,18 +236,16 @@ export default function DriveWithUsPage() {
                       placeholder="Anything else you'd like us to know..."
                       value={form.notes}
                       onChange={handleChange}
-                      className="rounded-lg border border-navy-300 dark:border-navy-700 bg-white dark:bg-navy-900 px-3 py-2 text-navy-950 dark:text-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
+                      className="rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 px-4 py-3 text-navy-950 dark:text-white placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500/50 resize-none transition-shadow"
                     />
                   </div>
 
-                  {/* Error */}
                   {error && (
-                    <p className="rounded-lg border border-red-800 bg-red-900/30 px-4 py-3 text-sm text-red-400">
+                    <p className="rounded-lg bg-red-50 dark:bg-red-900/20 px-4 py-3 text-sm text-red-600 dark:text-red-400">
                       {error}
                     </p>
                   )}
 
-                  {/* Submit */}
                   <Button
                     type="submit"
                     size="lg"

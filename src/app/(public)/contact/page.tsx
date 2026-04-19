@@ -32,79 +32,60 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white px-6 py-20">
-      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
-        {/* Left — Info */}
-        <div>
-          <h1 className="text-4xl font-bold text-navy-950 dark:text-white mb-4">Get in Touch</h1>
-          <p className="text-navy-600 dark:text-navy-300 text-lg leading-relaxed mb-10">
-            Have a question about working with us, or ready to get started? Reach out and a member
-            of our team will get back to you within one business day.
+    <div className="min-h-screen bg-white dark:bg-navy-950 text-navy-950 dark:text-white px-6 py-24 sm:py-32">
+      <div className="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
+        {/* Left -- Info */}
+        <div className="animate-fade-in">
+          <h1 className="text-4xl sm:text-5xl font-bold tracking-tight mb-6">Get in Touch</h1>
+          <p className="text-navy-500 dark:text-navy-400 text-lg leading-relaxed mb-12">
+            Have a question or ready to get started? We will get back to you within one business day.
           </p>
 
-          <ul className="space-y-6">
-            <li className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-500/20 flex items-center justify-center shrink-0">
-                <Mail className="w-5 h-5 text-accent-400" />
-              </div>
-              <div>
-                <p className="text-xs text-navy-500 dark:text-navy-400 uppercase tracking-wide mb-0.5">Email</p>
-                <a
-                  href="mailto:info@elitetrucklines.com"
-                  className="text-navy-950 dark:text-white hover:text-accent-400 transition-colors"
-                >
-                  info@elitetrucklines.com
-                </a>
-              </div>
+          <ul className="space-y-5">
+            <li className="flex items-center gap-3">
+              <Mail className="w-4 h-4 text-navy-400 dark:text-navy-500 flex-shrink-0" />
+              <a
+                href="mailto:info@elitetrucklines.com"
+                className="text-navy-700 dark:text-navy-300 hover:text-accent-500 transition-colors text-sm"
+              >
+                info@elitetrucklines.com
+              </a>
             </li>
-            <li className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-500/20 flex items-center justify-center shrink-0">
-                <Phone className="w-5 h-5 text-accent-400" />
-              </div>
-              <div>
-                <p className="text-xs text-navy-500 dark:text-navy-400 uppercase tracking-wide mb-0.5">Phone</p>
-                <a
-                  href="tel:+15033095090"
-                  className="text-navy-950 dark:text-white hover:text-accent-400 transition-colors"
-                >
-                  (503) 309-5090
-                </a>
-              </div>
+            <li className="flex items-center gap-3">
+              <Phone className="w-4 h-4 text-navy-400 dark:text-navy-500 flex-shrink-0" />
+              <a
+                href="tel:+15033095090"
+                className="text-navy-700 dark:text-navy-300 hover:text-accent-500 transition-colors text-sm"
+              >
+                (503) 309-5090
+              </a>
             </li>
-            <li className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-lg bg-accent-50 dark:bg-accent-500/20 flex items-center justify-center shrink-0">
-                <FileText className="w-5 h-5 text-accent-400" />
-              </div>
-              <div>
-                <p className="text-xs text-navy-500 dark:text-navy-400 uppercase tracking-wide mb-0.5">MC / DOT</p>
-                <p className="text-navy-950 dark:text-white">MC-1476965 / DOT-3960676</p>
-              </div>
+            <li className="flex items-center gap-3">
+              <FileText className="w-4 h-4 text-navy-400 dark:text-navy-500 flex-shrink-0" />
+              <span className="text-navy-700 dark:text-navy-300 text-sm">MC-1476965 / DOT-3960676</span>
             </li>
           </ul>
         </div>
 
-        {/* Right — Form */}
-        <div className="bg-navy-50 dark:bg-navy-900/50 border border-navy-200 dark:border-navy-800 rounded-xl p-8">
+        {/* Right -- Form */}
+        <div className="rounded-2xl bg-navy-50/50 dark:bg-navy-900/30 p-8 sm:p-10">
           {submitted ? (
-            <div className="flex flex-col items-center justify-center py-12 text-center gap-4">
-              <div className="w-14 h-14 rounded-full bg-accent-50 dark:bg-accent-500/20 flex items-center justify-center">
-                <Mail className="w-7 h-7 text-accent-400" />
-              </div>
-              <h2 className="text-2xl font-semibold text-navy-950 dark:text-white">Message Sent</h2>
-              <p className="text-navy-600 dark:text-navy-300">
-                Thanks for reaching out! We'll get back to you within one business day.
+            <div className="flex flex-col items-center justify-center py-12 text-center gap-3">
+              <Mail className="w-6 h-6 text-accent-500" />
+              <h2 className="text-xl font-semibold">Message Sent</h2>
+              <p className="text-navy-500 dark:text-navy-400 text-sm">
+                We will get back to you within one business day.
               </p>
-              <Button
-                variant="secondary"
+              <button
                 onClick={() => setSubmitted(false)}
-                className="mt-4"
+                className="mt-4 text-sm text-accent-500 hover:text-accent-600 font-medium transition-colors"
               >
                 Send Another Message
-              </Button>
+              </button>
             </div>
           ) : (
             <form onSubmit={handleSubmit} className="flex flex-col gap-5">
-              <h2 className="text-xl font-semibold text-navy-950 dark:text-white mb-1">Send Us a Message</h2>
+              <h2 className="text-lg font-semibold mb-2">Send Us a Message</h2>
 
               <Input
                 id="name"
@@ -137,7 +118,7 @@ export default function ContactPage() {
                 onChange={handleChange}
               />
 
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-1.5">
                 <label
                   htmlFor="message"
                   className="text-sm font-medium text-navy-600 dark:text-navy-300"
@@ -148,11 +129,11 @@ export default function ContactPage() {
                   id="message"
                   name="message"
                   rows={5}
-                  placeholder="Tell us a bit about yourself and how we can help..."
+                  placeholder="Tell us how we can help..."
                   value={form.message}
                   onChange={handleChange}
                   required
-                  className="rounded-lg border border-navy-300 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-950 dark:text-white px-3 py-2 placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500 resize-none"
+                  className="rounded-xl border border-navy-200 dark:border-navy-700 bg-white dark:bg-navy-900 text-navy-950 dark:text-white px-4 py-3 placeholder:text-navy-400 focus:outline-none focus:ring-2 focus:ring-accent-500/50 resize-none transition-shadow"
                 />
               </div>
 
