@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Menu, X, Sun, Moon } from "lucide-react";
@@ -16,8 +16,11 @@ const navLinks = [
 
 export default function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const pathname = usePathname();
-  const { theme, setTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
+
+  useEffect(() => setMounted(true), []);
 
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 dark:bg-navy-950/80 backdrop-blur-sm border-b border-navy-100 dark:border-navy-800/50">
@@ -51,13 +54,15 @@ export default function Navbar() {
 
           {/* Right side */}
           <div className="flex items-center gap-2">
-            <button
-              onClick={() => setTheme(theme === "dark" ? "light" : "dark")}
-              className="p-2 rounded-lg text-navy-400 dark:text-navy-500 hover:text-navy-700 dark:hover:text-navy-300 transition-colors"
-              aria-label="Toggle theme"
-            >
-              {theme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
-            </button>
+            {mounted && (
+              <button
+                onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
+                className="p-2 rounded-lg text-navy-400 dark:text-navy-500 hover:text-navy-700 dark:hover:text-navy-300 transition-colors"
+                aria-label="Toggle theme"
+              >
+                {resolvedTheme === "dark" ? <Sun size={16} /> : <Moon size={16} />}
+              </button>
+            )}
             <Link
               href="/login"
               className="hidden md:inline-flex items-center px-4 py-1.5 rounded-full text-sm font-medium bg-accent-500 text-white hover:bg-accent-600 transition-colors"
