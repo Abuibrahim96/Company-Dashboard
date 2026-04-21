@@ -8,11 +8,11 @@ import StatusBadge from "@/components/dashboard/StatusBadge";
 
 type Operator = {
   id: string;
-  name: string;
+  full_name: string;
   phone: string | null;
   cdl_number: string | null;
   cdl_class: string | null;
-  commission_pct: number | null;
+  commission_rate: number | null;
   status: string;
 };
 
@@ -33,8 +33,8 @@ export default function OperatorsPage() {
     const supabase = createClient();
     const { data } = await supabase
       .from("operators")
-      .select("id, name, phone, cdl_number, cdl_class, commission_pct, status")
-      .order("name");
+      .select("id, full_name, phone, cdl_number, cdl_class, commission_rate, status")
+      .order("full_name");
     if (data) setOperators(data);
   }, []);
 
@@ -62,7 +62,7 @@ export default function OperatorsPage() {
     const q = search.toLowerCase();
     const matchesSearch =
       !q ||
-      op.name.toLowerCase().includes(q) ||
+      op.full_name.toLowerCase().includes(q) ||
       (op.phone ?? "").toLowerCase().includes(q) ||
       (op.cdl_number ?? "").toLowerCase().includes(q);
     return matchesStatus && matchesSearch;
@@ -124,7 +124,7 @@ export default function OperatorsPage() {
                   className="bg-white dark:bg-navy-900 hover:bg-navy-50 dark:hover:bg-navy-800 cursor-pointer transition-colors"
                 >
                   <td className="px-4 py-3 font-medium text-navy-950 dark:text-white">
-                    {op.name}
+                    {op.full_name}
                   </td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
                     {op.phone ?? "—"}
@@ -135,8 +135,8 @@ export default function OperatorsPage() {
                       : "—"}
                   </td>
                   <td className="px-4 py-3 text-right text-navy-600 dark:text-navy-300">
-                    {op.commission_pct != null
-                      ? `${op.commission_pct}%`
+                    {op.commission_rate != null
+                      ? `${Math.round(op.commission_rate * 100)}%`
                       : "—"}
                   </td>
                   <td className="px-4 py-3">

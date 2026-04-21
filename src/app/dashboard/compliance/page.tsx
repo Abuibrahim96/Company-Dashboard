@@ -7,9 +7,9 @@ import { daysUntil } from "@/lib/utils";
 
 type Document = {
   id: string;
-  doc_type: string;
-  doc_number: string;
-  expires_at: string;
+  type: string;
+  document_number: string;
+  expiration_date: string;
   status: string;
   operators: { full_name: string } | null;
   trucks: { make: string; model: string } | null;
@@ -48,9 +48,9 @@ export default function CompliancePage() {
       const { data, error } = await supabase
         .from("documents")
         .select(
-          "id, doc_type, doc_number, expires_at, status, operators(full_name), trucks(make, model)"
+          "id, type, document_number, expiration_date, status, operators(full_name), trucks(make, model)"
         )
-        .order("expires_at", { ascending: true });
+        .order("expiration_date", { ascending: true });
 
       if (!error && data) {
         setDocuments(data as unknown as Document[]);
@@ -75,15 +75,15 @@ export default function CompliancePage() {
   }, []);
 
   // Summary counts
-  const expiredCount = documents.filter((d) => daysUntil(d.expires_at) < 0).length;
+  const expiredCount = documents.filter((d) => daysUntil(d.expiration_date) < 0).length;
   const expiringSoonCount = documents.filter(
-    (d) => daysUntil(d.expires_at) >= 0 && daysUntil(d.expires_at) <= 30
+    (d) => daysUntil(d.expiration_date) >= 0 && daysUntil(d.expiration_date) <= 30
   ).length;
-  const validCount = documents.filter((d) => daysUntil(d.expires_at) > 30).length;
+  const validCount = documents.filter((d) => daysUntil(d.expiration_date) > 30).length;
 
   // Filtered list
   const filtered = documents.filter((doc) => {
-    const days = daysUntil(doc.expires_at);
+    const days = daysUntil(doc.expiration_date);
     if (filter === "all") return true;
     if (filter === "expired") return days < 0;
     const maxDays = parseInt(filter, 10);
@@ -162,7 +162,7 @@ export default function CompliancePage() {
               </tr>
             ) : (
               filtered.map((doc) => {
-                const days = daysUntil(doc.expires_at);
+                const days = daysUntil(doc.expiration_date);
                 return (
                   <tr
                     key={doc.id}
@@ -170,13 +170,13 @@ export default function CompliancePage() {
                   >
                     <td className="px-4 py-3 text-navy-950 dark:text-white">{ownerLabel(doc)}</td>
                     <td className="px-4 py-3 text-navy-600 dark:text-navy-300 capitalize">
-                      {doc.doc_type.replace(/_/g, " ")}
+                      {doc.type.replace(/_/g, " ")}
                     </td>
                     <td className="px-4 py-3 text-navy-600 dark:text-navy-300 font-mono text-xs">
-                      {doc.doc_number ?? "—"}
+                      {doc.document_number ?? "—"}
                     </td>
                     <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
-                      {new Date(doc.expires_at).toLocaleDateString("en-US", {
+                      {new Date(doc.expiration_date).toLocaleDateString("en-US", {
                         month: "short",
                         day: "numeric",
                         year: "numeric",

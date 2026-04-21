@@ -8,14 +8,21 @@ import { formatCurrency } from "@/lib/utils";
 type Load = {
   id: string;
   load_number: string;
-  origin: string;
-  destination: string;
+  origin_city: string | null;
+  origin_state: string | null;
+  destination_city: string | null;
+  destination_state: string | null;
   rate: number;
   elite_cut: number;
   status: string;
   operators: { full_name: string } | null;
   clients: { company_name: string } | null;
 };
+
+function formatCityState(city: string | null, state: string | null): string {
+  const parts = [city, state].filter(Boolean);
+  return parts.length ? parts.join(", ") : "—";
+}
 
 const STATUS_OPTIONS = [
   { value: "all", label: "All" },
@@ -38,7 +45,7 @@ export default function LoadsPage() {
       const { data, error } = await supabase
         .from("loads")
         .select(
-          "id, load_number, origin, destination, rate, elite_cut, status, operators(full_name), clients(company_name)"
+          "id, load_number, origin_city, origin_state, destination_city, destination_state, rate, elite_cut, status, operators(full_name), clients(company_name)"
         )
         .order("created_at", { ascending: false });
 
@@ -147,7 +154,7 @@ export default function LoadsPage() {
                     {load.clients?.company_name ?? "—"}
                   </td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
-                    {load.origin} → {load.destination}
+                    {formatCityState(load.origin_city, load.origin_state)} → {formatCityState(load.destination_city, load.destination_state)}
                   </td>
                   <td className="px-4 py-3 text-navy-950 dark:text-white">{formatCurrency(load.rate)}</td>
                   <td className="px-4 py-3 text-accent-400 font-medium">

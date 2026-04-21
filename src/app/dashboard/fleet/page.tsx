@@ -11,7 +11,7 @@ type Truck = {
   make: string;
   model: string;
   vin: string;
-  plate: string;
+  license_plate: string;
   status: string;
   operators: { full_name: string } | null;
 };
@@ -35,7 +35,7 @@ export default function FleetPage() {
     async function fetchTrucks() {
       const { data, error } = await supabase
         .from("trucks")
-        .select("id, year, make, model, vin, plate, status, operators(full_name)")
+        .select("id, year, make, model, vin, license_plate, status, operators(full_name)")
         .order("make", { ascending: true });
 
       if (!error && data) {
@@ -66,7 +66,7 @@ export default function FleetPage() {
       truck.make.toLowerCase().includes(q) ||
       truck.model.toLowerCase().includes(q) ||
       truck.vin.toLowerCase().includes(q) ||
-      truck.plate.toLowerCase().includes(q) ||
+      truck.license_plate.toLowerCase().includes(q) ||
       (truck.operators?.full_name ?? "").toLowerCase().includes(q);
     const matchesStatus =
       statusFilter === "all" || truck.status === statusFilter;
@@ -149,7 +149,7 @@ export default function FleetPage() {
                     {truck.year} {truck.make} {truck.model}
                   </td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300 font-mono text-xs">{truck.vin}</td>
-                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{truck.plate}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{truck.license_plate}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={truck.status} />
                   </td>
