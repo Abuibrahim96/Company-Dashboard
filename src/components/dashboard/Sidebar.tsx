@@ -10,20 +10,33 @@ import {
   ShieldCheck,
   Building2,
   Package,
+  UserCog,
   ChevronLeft,
   ChevronRight,
 } from "lucide-react";
+import type { UserRole } from "@/lib/auth";
 
-const navItems = [
+type NavItem = {
+  label: string;
+  href: string;
+  icon: typeof LayoutDashboard;
+  exact: boolean;
+  adminOnly?: boolean;
+};
+
+const navItems: NavItem[] = [
   { label: "Overview", href: "/dashboard", icon: LayoutDashboard, exact: true },
   { label: "Operators", href: "/dashboard/operators", icon: Users, exact: false },
   { label: "Fleet", href: "/dashboard/fleet", icon: Truck, exact: false },
   { label: "Compliance", href: "/dashboard/compliance", icon: ShieldCheck, exact: false },
   { label: "Clients", href: "/dashboard/clients", icon: Building2, exact: false },
   { label: "Loads", href: "/dashboard/loads", icon: Package, exact: false },
+  { label: "Team", href: "/dashboard/team", icon: UserCog, exact: false, adminOnly: true },
 ];
 
-export default function Sidebar() {
+export default function Sidebar({ role }: { role: UserRole }) {
+  const visibleItems = navItems.filter((item) => !item.adminOnly || role === "admin");
+
   const [collapsed, setCollapsed] = useState(false);
   const pathname = usePathname();
 
@@ -49,7 +62,7 @@ export default function Sidebar() {
 
       {/* Nav */}
       <nav className="flex-1 py-4 space-y-1 overflow-hidden">
-        {navItems.map(({ label, href, icon: Icon, exact }) => {
+        {visibleItems.map(({ label, href, icon: Icon, exact }) => {
           const active = isActive(href, exact);
           return (
             <Link
