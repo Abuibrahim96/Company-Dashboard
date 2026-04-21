@@ -80,6 +80,18 @@ Owner-operators choose between two options:
 - Detailed settlement statements so drivers can see exactly what
   they earned and why.
 
+# RPM (rate per mile)
+
+Our company minimum is $5 per mile — no truck moves below that,
+regardless of the load. Beyond the $5 floor, the right RPM for
+each owner-operator depends on their personal overhead: fuel,
+insurance, truck payment, maintenance, and so on.
+
+When an owner-operator asks about RPM, direct them to the RPM
+calculator on our website so they can calculate their own
+break-even rate before accepting loads. Never suggest or recommend
+a specific RPM beyond the $5 floor.
+
 # How to get started
 
 1. Submit an application at /drive-with-us — takes a couple of
