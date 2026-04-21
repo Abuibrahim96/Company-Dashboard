@@ -10,41 +10,55 @@ import { formatCurrency, formatDate } from "@/lib/utils";
 
 type Operator = {
   id: string;
-  name: string;
+  full_name: string;
   email: string | null;
   phone: string | null;
   cdl_number: string | null;
   cdl_class: string | null;
-  commission_pct: number | null;
+  commission_rate: number | null;
   status: string;
   created_at: string;
 };
 
 type TruckRow = {
   id: string;
-  vehicle: string | null;
+  year: string | null;
+  make: string | null;
+  model: string | null;
   vin: string | null;
-  plate: string | null;
+  license_plate: string | null;
   status: string;
 };
 
 type DocumentRow = {
   id: string;
   type: string;
-  number: string | null;
-  expires: string | null;
+  document_number: string | null;
+  expiration_date: string | null;
   status: string;
 };
 
 type LoadRow = {
   id: string;
   load_number: string | null;
-  origin: string | null;
-  destination: string | null;
+  origin_city: string | null;
+  origin_state: string | null;
+  destination_city: string | null;
+  destination_state: string | null;
   rate: number | null;
   operator_pay: number | null;
   status: string;
 };
+
+function formatVehicle(t: TruckRow): string {
+  const parts = [t.year, t.make, t.model].map((p) => (p ?? "").toString().trim()).filter(Boolean);
+  return parts.length ? parts.join(" ") : "—";
+}
+
+function formatCityState(city: string | null, state: string | null): string {
+  const parts = [city, state].filter(Boolean);
+  return parts.length ? parts.join(", ") : "—";
+}
 
 export default function OperatorDetailPage() {
   const { id } = useParams<{ id: string }>();
@@ -64,26 +78,31 @@ export default function OperatorDetailPage() {
         supabase
           .from("operators")
           .select(
-            "id, name, email, phone, cdl_number, cdl_class, commission_pct, status, created_at"
+            "id, full_name, email, phone, cdl_number, cdl_class, commission_rate, status, created_at"
           )
           .eq("id", id)
           .single(),
         supabase
           .from("trucks")
-          .select("id, vehicle, vin, plate, status")
+          .select("id, year, make, model, vin, license_plate, status")
           .eq("operator_id", id),
         supabase
           .from("documents")
-          .select("id, type, number, expires, status")
+          .select("id, type, document_number, expiration_date, status")
           .eq("operator_id", id),
         supabase
           .from("loads")
-          .select("id, load_number, origin, destination, rate, operator_pay, status")
+          .select(
+            "id, load_number, origin_city, origin_state, destination_city, destination_state, rate, operator_pay, status"
+          )
           .eq("operator_id", id)
           .order("created_at", { ascending: false })
           .limit(20),
       ]);
 
+      if (opRes.error) {
+        console.error("Operator fetch failed:", opRes.error);
+      }
       if (opRes.data) setOperator(opRes.data);
       if (trucksRes.data) setTrucks(trucksRes.data);
       if (docsRes.data) setDocuments(docsRes.data);
@@ -133,13 +152,13 @@ export default function OperatorDetailPage() {
       <div className="bg-navy-100 dark:bg-navy-800 border border-navy-200 dark:border-navy-700 rounded-xl p-6">
         <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-bold text-navy-950 dark:text-white">{operator.name}</h1>
+            <h1 className="text-2xl font-bold text-navy-950 dark:text-white">{operator.full_name}</h1>
             <div className="mt-2 flex flex-wrap gap-4 text-sm text-navy-600 dark:text-navy-300">
               {operator.cdl_class && (
                 <span>CDL Class {operator.cdl_class}</span>
               )}
-              {operator.commission_pct != null && (
-                <span>Commission: {operator.commission_pct}%</span>
+              {operator.commission_rate != null && (
+                <span>Commission: {Math.round(operator.commission_rate * 100)}%</span>
               )}
               <span>Onboarded: {formatDate(operator.created_at)}</span>
             </div>
@@ -176,9 +195,9 @@ export default function OperatorDetailPage() {
             <tbody className="divide-y divide-navy-200 dark:divide-navy-700">
               {trucks.map((t) => (
                 <tr key={t.id} className="bg-white dark:bg-navy-900">
-                  <td className="px-4 py-3 text-navy-950 dark:text-white">{t.vehicle ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-950 dark:text-white">{formatVehicle(t)}</td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{t.vin ?? "—"}</td>
-                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{t.plate ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{t.license_plate ?? "—"}</td>
                   <td className="px-4 py-3">
                     <StatusBadge status={t.status} />
                   </td>
@@ -209,9 +228,9 @@ export default function OperatorDetailPage() {
                   <td className="px-4 py-3 text-navy-950 dark:text-white capitalize">
                     {d.type.replace(/_/g, " ")}
                   </td>
-                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{d.number ?? "—"}</td>
+                  <td className="px-4 py-3 text-navy-600 dark:text-navy-300">{d.document_number ?? "—"}</td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
-                    {d.expires ? formatDate(d.expires) : "—"}
+                    {d.expiration_date ? formatDate(d.expiration_date) : "—"}
                   </td>
                   <td className="px-4 py-3">
                     <StatusBadge status={d.status} />
@@ -245,9 +264,7 @@ export default function OperatorDetailPage() {
                     {l.load_number ?? "—"}
                   </td>
                   <td className="px-4 py-3 text-navy-600 dark:text-navy-300">
-                    {l.origin && l.destination
-                      ? `${l.origin} → ${l.destination}`
-                      : (l.origin ?? l.destination ?? "—")}
+                    {formatCityState(l.origin_city, l.origin_state)} → {formatCityState(l.destination_city, l.destination_state)}
                   </td>
                   <td className="px-4 py-3 text-right text-navy-600 dark:text-navy-300">
                     {l.rate != null ? formatCurrency(l.rate) : "—"}
