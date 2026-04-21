@@ -38,7 +38,16 @@ export async function POST(request: NextRequest) {
       : 1;
   const num_trucks = Number.isFinite(parsedNumTrucks) && parsedNumTrucks > 0 ? parsedNumTrucks : 1;
 
-  const supabase = createServiceRoleClient();
+  let supabase;
+  try {
+    supabase = createServiceRoleClient();
+  } catch (e) {
+    console.error("Supabase client init failed:", e);
+    return NextResponse.json(
+      { error: "Server misconfigured" },
+      { status: 500 }
+    );
+  }
 
   const { data, error } = await supabase
     .from("applications")
