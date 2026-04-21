@@ -8,11 +8,13 @@ const colorMap: Record<string, string> = {
   delivered: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/30",
   paid: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/30",
   onboarded: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/30",
+  approved: "bg-green-500/10 text-green-600 dark:text-green-400 border-green-500/30",
 
   in_transit: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30",
   booked: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30",
   pending: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30",
   reviewed: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30",
+  contacted: "bg-blue-500/10 text-blue-600 dark:text-blue-400 border-blue-500/30",
 
   expiring_soon: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/30",
   maintenance: "bg-yellow-500/10 text-yellow-600 dark:text-yellow-400 border-yellow-500/30",

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Users, Truck, Package, DollarSign, ShieldCheck, FileWarning } from "lucide-react";
 import { createClient } from "@/lib/supabase-browser";
 import { formatCurrency, formatDate } from "@/lib/utils";
@@ -243,16 +244,21 @@ export default function DashboardOverview() {
           ) : data.pendingApplications.length === 0 ? (
             <p className="text-sm text-navy-500 dark:text-navy-400">No pending applications.</p>
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-1">
               {data.pendingApplications.map((app) => (
-                <li key={app.id} className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <p className="text-sm font-medium text-navy-950 dark:text-white truncate">{app.full_name}</p>
-                    <p className="text-xs text-navy-500 dark:text-navy-400 truncate">
-                      {app.phone} &middot; {app.email}
-                    </p>
-                  </div>
-                  <StatusBadge status={app.status} />
+                <li key={app.id}>
+                  <Link
+                    href={`/dashboard/applications/${app.id}`}
+                    className="flex items-start justify-between gap-3 rounded-lg px-2 py-2 -mx-2 hover:bg-navy-100 dark:hover:bg-navy-800/50 transition-colors"
+                  >
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-navy-950 dark:text-white truncate">{app.full_name}</p>
+                      <p className="text-xs text-navy-500 dark:text-navy-400 truncate">
+                        {app.phone} &middot; {app.email}
+                      </p>
+                    </div>
+                    <StatusBadge status={app.status} />
+                  </Link>
                 </li>
               ))}
             </ul>
