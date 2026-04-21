@@ -10,6 +10,7 @@ const navLinks = [
   { label: "Home", href: "/" },
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
+  { label: "RPM Calculator", href: "/rpm-calculator" },
   { label: "Drive With Us", href: "/drive-with-us" },
   { label: "Contact", href: "/contact" },
 ];
