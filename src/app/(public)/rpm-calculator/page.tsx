@@ -326,17 +326,14 @@ export default function RpmCalculatorPage() {
         {/* Floor note */}
         <div className="mt-16 border-t border-navy-200 dark:border-navy-800 pt-10">
           <h2 className="text-lg font-semibold mb-3">
-            About Elite Truck Lines&apos; ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX}/mi minimum
+            What we aim for
           </h2>
           <p className="text-sm text-navy-500 dark:text-navy-400 leading-relaxed">
-            Regardless of what your personal break-even comes out to, our
-            company minimum sits in the{" "}
+            We will try to get you{" "}
             <strong>
-              ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX} per mile
-            </strong>{" "}
-            range. No truck moves below that range. The calculator above
-            helps you figure out your own number so you can decide which
-            loads are worth your time above the floor.
+              ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX} a mile
+            </strong>
+            .
           </p>
         </div>
       </div>
