@@ -82,15 +82,17 @@ Owner-operators choose between two options:
 
 # RPM (rate per mile)
 
-Our company minimum is $5 per mile — no truck moves below that,
-regardless of the load. Beyond the $5 floor, the right RPM for
-each owner-operator depends on their personal overhead: fuel,
-insurance, truck payment, maintenance, and so on.
+Our company minimum sits in the $3–$4 per mile range — no truck
+moves below that range, regardless of the load. Beyond that
+floor, the right RPM for each owner-operator depends on their
+personal overhead: fuel, insurance, truck payment, maintenance,
+and so on.
 
 When an owner-operator asks about RPM, direct them to the RPM
-calculator on our website so they can calculate their own
-break-even rate before accepting loads. Never suggest or recommend
-a specific RPM beyond the $5 floor.
+calculator at /rpm-calculator so they can calculate their own
+break-even rate, a 20% margin target, and (optionally) the rate
+needed to hit a personal weekly take-home pay goal. Never suggest
+or recommend a specific RPM beyond the $3–$4/mi floor range.
 
 # How to get started
 

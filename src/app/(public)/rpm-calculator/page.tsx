@@ -5,7 +5,8 @@ import { useMemo, useState } from "react";
 import { ArrowRight, Calculator, Info } from "lucide-react";
 import { Input } from "@/components/ui/Input";
 
-const FLOOR_RPM = 5;
+const FLOOR_RPM_MIN = 3;
+const FLOOR_RPM_MAX = 4;
 const TARGET_MARGIN = 0.2;
 
 interface FormState {
@@ -14,6 +15,7 @@ interface FormState {
   truck_payment: string;
   maintenance: string;
   miles: string;
+  take_home: string;
 }
 
 const defaultForm: FormState = {
@@ -22,6 +24,7 @@ const defaultForm: FormState = {
   truck_payment: "",
   maintenance: "",
   miles: "",
+  take_home: "",
 };
 
 function toNumber(v: string): number {
@@ -54,6 +57,7 @@ export default function RpmCalculatorPage() {
     const truck = toNumber(form.truck_payment);
     const maintenance = toNumber(form.maintenance);
     const miles = toNumber(form.miles);
+    const takeHome = toNumber(form.take_home);
 
     const totalWeeklyCosts = fuel + insurance + truck + maintenance;
 
@@ -64,6 +68,18 @@ export default function RpmCalculatorPage() {
     const weeklyRevenueAtTarget = target * miles;
     const weeklyProfitAtTarget = weeklyRevenueAtTarget - totalWeeklyCosts;
 
+    // Income goal RPM: rate needed to cover overhead AND hit the
+    // driver's stated take-home pay. Only computed if the driver
+    // filled in the optional take-home field.
+    const incomeGoal =
+      takeHome > 0
+        ? {
+            takeHome,
+            requiredRevenue: totalWeeklyCosts + takeHome,
+            rpm: (totalWeeklyCosts + takeHome) / miles,
+          }
+        : null;
+
     return {
       totalWeeklyCosts,
       miles,
@@ -71,6 +87,7 @@ export default function RpmCalculatorPage() {
       target,
       weeklyRevenueAtTarget,
       weeklyProfitAtTarget,
+      incomeGoal,
     };
   }, [form]);
 
@@ -159,6 +176,27 @@ export default function RpmCalculatorPage() {
             </div>
           </div>
 
+          {/* Optional: personal income goal */}
+          <div className="mt-6 pt-6 border-t border-navy-200 dark:border-navy-800">
+            <Input
+              id="take_home"
+              name="take_home"
+              label="Desired weekly take-home pay (optional)"
+              type="number"
+              min="0"
+              step="1"
+              inputMode="decimal"
+              placeholder="1500"
+              value={form.take_home}
+              onChange={handleChange}
+            />
+            <p className="mt-2 text-xs text-navy-500 dark:text-navy-400">
+              Fill this in to also see the exact RPM you&apos;d need to hit
+              your personal income goal on top of overhead. Leave blank to
+              skip.
+            </p>
+          </div>
+
           <p className="mt-6 text-xs text-navy-500 dark:text-navy-400 flex items-start gap-2">
             <Info className="h-3.5 w-3.5 flex-shrink-0 mt-0.5" />
             <span>
@@ -197,6 +235,24 @@ export default function RpmCalculatorPage() {
               </div>
             </div>
 
+            {result.incomeGoal && (
+              <div className="rounded-2xl bg-navy-950 dark:bg-white/5 border border-navy-950 dark:border-white/10 p-6 text-white dark:text-white">
+                <p className="text-xs uppercase tracking-wide text-navy-300 dark:text-navy-400 mb-2">
+                  RPM for your income goal
+                </p>
+                <p className="text-3xl font-bold">
+                  {formatRPM(result.incomeGoal.rpm)}
+                </p>
+                <p className="mt-2 text-sm text-navy-300 dark:text-navy-300">
+                  What you&apos;d need to charge per mile to cover overhead
+                  and take home {formatMoney(result.incomeGoal.takeHome)} per
+                  week at {result.miles.toLocaleString()} miles. Total weekly
+                  revenue needed:{" "}
+                  {formatMoney(result.incomeGoal.requiredRevenue)}.
+                </p>
+              </div>
+            )}
+
             <div className="rounded-2xl bg-navy-50/50 dark:bg-navy-900/30 p-6">
               <dl className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-sm">
                 <div>
@@ -226,16 +282,20 @@ export default function RpmCalculatorPage() {
               </dl>
             </div>
 
-            {result.target < FLOOR_RPM && (
+            {result.target < FLOOR_RPM_MAX && (
               <div className="rounded-2xl bg-yellow-500/10 border border-yellow-500/40 p-5 text-sm text-navy-700 dark:text-navy-200">
                 <p className="font-medium text-yellow-700 dark:text-yellow-400">
                   Heads up
                 </p>
                 <p className="mt-1 leading-relaxed">
-                  Your target RPM is below Elite Truck Lines&apos; company
-                  minimum of <strong>$5/mi</strong>. No truck moves below that
-                  rate regardless of the load — so in practice your effective
-                  target is <strong>{formatRPM(FLOOR_RPM)}</strong> or higher.
+                  Your target RPM is within or below Elite Truck Lines&apos;
+                  company minimum range of{" "}
+                  <strong>
+                    ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX}/mi
+                  </strong>
+                  . No truck moves below that range regardless of the load —
+                  so in practice your effective rates will sit at the floor
+                  or higher.
                 </p>
               </div>
             )}
@@ -266,14 +326,17 @@ export default function RpmCalculatorPage() {
         {/* Floor note */}
         <div className="mt-16 border-t border-navy-200 dark:border-navy-800 pt-10">
           <h2 className="text-lg font-semibold mb-3">
-            About Elite Truck Lines&apos; $5/mi minimum
+            About Elite Truck Lines&apos; ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX}/mi minimum
           </h2>
           <p className="text-sm text-navy-500 dark:text-navy-400 leading-relaxed">
             Regardless of what your personal break-even comes out to, our
-            company minimum is <strong>$5 per mile</strong>. No truck moves
-            below that floor. The calculator above helps you figure out your
-            own number so you can decide which loads are worth your time
-            above the floor.
+            company minimum sits in the{" "}
+            <strong>
+              ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX} per mile
+            </strong>{" "}
+            range. No truck moves below that range. The calculator above
+            helps you figure out your own number so you can decide which
+            loads are worth your time above the floor.
           </p>
         </div>
       </div>
