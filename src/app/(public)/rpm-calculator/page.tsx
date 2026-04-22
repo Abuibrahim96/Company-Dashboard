@@ -15,6 +15,15 @@ interface FormState {
   truck_payment: string;
   maintenance: string;
   miles: string;
+  // Additional overhead — all optional
+  dispatching_fee: string;
+  eld_subscription: string;
+  load_board_subscription: string;
+  factoring_fees: string;
+  permits_tolls: string;
+  food_living: string;
+  phone_comm: string;
+  // Personal income goal — optional
   take_home: string;
 }
 
@@ -24,8 +33,41 @@ const defaultForm: FormState = {
   truck_payment: "",
   maintenance: "",
   miles: "",
+  dispatching_fee: "",
+  eld_subscription: "",
+  load_board_subscription: "",
+  factoring_fees: "",
+  permits_tolls: "",
+  food_living: "",
+  phone_comm: "",
   take_home: "",
 };
+
+// The seven optional overhead inputs, rendered in the
+// "Additional Overhead" section. Editing this array updates both
+// the form and the math (the math just sums the form values for
+// every key listed here).
+const ADDITIONAL_OVERHEAD: ReadonlyArray<{
+  name: keyof FormState;
+  label: string;
+  placeholder: string;
+}> = [
+  { name: "dispatching_fee", label: "Dispatching fee (per week)", placeholder: "150" },
+  { name: "eld_subscription", label: "ELD subscription (per week)", placeholder: "10" },
+  {
+    name: "load_board_subscription",
+    label: "Load board subscription (per week) — DAT, Truckstop, etc.",
+    placeholder: "40",
+  },
+  { name: "factoring_fees", label: "Factoring fees (per week)", placeholder: "75" },
+  { name: "permits_tolls", label: "Permits and tolls (per week)", placeholder: "50" },
+  {
+    name: "food_living",
+    label: "Food and living expenses (per week) — for OTR drivers on the road",
+    placeholder: "200",
+  },
+  { name: "phone_comm", label: "Phone and communication (per week)", placeholder: "25" },
+];
 
 function toNumber(v: string): number {
   const n = parseFloat(v);
@@ -59,7 +101,12 @@ export default function RpmCalculatorPage() {
     const miles = toNumber(form.miles);
     const takeHome = toNumber(form.take_home);
 
-    const totalWeeklyCosts = fuel + insurance + truck + maintenance;
+    const requiredOverhead = fuel + insurance + truck + maintenance;
+    const additionalOverhead = ADDITIONAL_OVERHEAD.reduce(
+      (sum, field) => sum + toNumber(form[field.name]),
+      0
+    );
+    const totalWeeklyCosts = requiredOverhead + additionalOverhead;
 
     if (miles <= 0 || totalWeeklyCosts <= 0) return null;
 
@@ -176,8 +223,43 @@ export default function RpmCalculatorPage() {
             </div>
           </div>
 
+          {/* Additional Overhead (Optional) */}
+          <div className="mt-8 pt-6 border-t border-navy-200 dark:border-navy-800">
+            <h2 className="text-sm font-semibold text-navy-950 dark:text-white">
+              Additional Overhead (Optional)
+            </h2>
+            <p className="mt-1 mb-4 text-xs text-navy-500 dark:text-navy-400">
+              Add anything that applies to you. Skip what doesn&apos;t. Any
+              value you enter here gets folded into your break-even, target,
+              and income-goal calculations.
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+              {ADDITIONAL_OVERHEAD.map((field, i) => {
+                const isLastOrphan =
+                  i === ADDITIONAL_OVERHEAD.length - 1 &&
+                  ADDITIONAL_OVERHEAD.length % 2 === 1;
+                return (
+                  <div key={field.name} className={isLastOrphan ? "sm:col-span-2" : ""}>
+                    <Input
+                      id={field.name}
+                      name={field.name}
+                      label={field.label}
+                      type="number"
+                      min="0"
+                      step="1"
+                      inputMode="decimal"
+                      placeholder={field.placeholder}
+                      value={form[field.name]}
+                      onChange={handleChange}
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Optional: personal income goal */}
-          <div className="mt-6 pt-6 border-t border-navy-200 dark:border-navy-800">
+          <div className="mt-8 pt-6 border-t border-navy-200 dark:border-navy-800">
             <Input
               id="take_home"
               name="take_home"
