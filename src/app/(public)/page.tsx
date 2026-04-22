@@ -4,6 +4,7 @@ import {
   ShieldCheck,
   FileText,
   Headphones,
+  Calculator,
   ArrowRight,
 } from "lucide-react";
 
@@ -85,6 +86,40 @@ export default function HomePage() {
                 </p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* RPM Calculator promo */}
+      <section className="py-24 sm:py-32">
+        <div className="mx-auto max-w-4xl px-6">
+          <div className="rounded-3xl bg-navy-50/50 dark:bg-navy-900/30 p-10 sm:p-14 text-center">
+            <div className="inline-flex items-center gap-2 rounded-full bg-accent-500/10 text-accent-500 px-3 py-1 text-xs font-medium mb-6">
+              <Calculator className="h-3.5 w-3.5" />
+              Free Tool
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight leading-[1.15]">
+              Free RPM Calculator —{" "}
+              <span className="text-accent-500">
+                Know Your Number Before You Roll
+              </span>
+            </h2>
+            <p className="mt-6 text-navy-500 dark:text-navy-400 text-base sm:text-lg leading-relaxed max-w-2xl mx-auto">
+              Not sure what rate you need to cover your costs and take home
+              real money? Our free RPM Calculator breaks it down for you —
+              fuel, insurance, truck payment, maintenance, and your personal
+              income goal. Know your break-even, know your target, never
+              accept a bad load again.
+            </p>
+            <div className="mt-10">
+              <Link
+                href="/rpm-calculator"
+                className="inline-flex items-center gap-2 rounded-full bg-accent-500 px-8 py-3.5 text-base font-medium text-white transition-all hover:bg-accent-600 hover:shadow-lg hover:shadow-accent-500/20"
+              >
+                Calculate My RPM
+                <ArrowRight className="h-4 w-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </section>
