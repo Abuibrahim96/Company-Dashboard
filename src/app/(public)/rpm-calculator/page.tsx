@@ -282,20 +282,19 @@ export default function RpmCalculatorPage() {
               </dl>
             </div>
 
-            {result.target < FLOOR_RPM_MAX && (
+            {result.target < FLOOR_RPM_MIN && (
               <div className="rounded-2xl bg-yellow-500/10 border border-yellow-500/40 p-5 text-sm text-navy-700 dark:text-navy-200">
                 <p className="font-medium text-yellow-700 dark:text-yellow-400">
                   Heads up
                 </p>
                 <p className="mt-1 leading-relaxed">
-                  Your target RPM is within or below Elite Truck Lines&apos;
-                  company minimum range of{" "}
+                  Your target RPM is below the{" "}
                   <strong>
-                    ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX}/mi
-                  </strong>
-                  . No truck moves below that range regardless of the load —
-                  so in practice your effective rates will sit at the floor
-                  or higher.
+                    ${FLOOR_RPM_MIN}–${FLOOR_RPM_MAX} a mile
+                  </strong>{" "}
+                  range we try to get our drivers. You may want to revisit
+                  your numbers or aim for higher weekly mileage to leave
+                  yourself more cushion.
                 </p>
               </div>
             )}
